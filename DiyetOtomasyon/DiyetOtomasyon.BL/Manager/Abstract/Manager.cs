@@ -49,11 +49,11 @@ namespace DiyetOtomasyon.BL.Manager.Abstract
         }
 
 
-        public List<TModel> GetAll()
+        public List<TModel>? GetAll()
         {
             List<TEntity> EntitiesFromDb = _repository.GetAll().ToList();
 
-            List<TModel> models = new List<TModel>();
+            List<TModel>? models = new List<TModel>();
 
             foreach (TEntity entity in EntitiesFromDb)
             {

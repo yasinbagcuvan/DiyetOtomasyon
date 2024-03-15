@@ -106,6 +106,7 @@
             Controls.Add(lblEmail1);
             Name = "Form3";
             Text = "Form3";
+            Load += Form3_Load;
             ResumeLayout(false);
             PerformLayout();
         }

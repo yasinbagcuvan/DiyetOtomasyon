@@ -18,19 +18,19 @@ namespace DiyetOtomasyon.PL
         public PersonModel person;
         PersonManager PersonManager = new PersonManager();
         public PersonModel LoginUser;
-        
+
         public Form3(Form mainform = null)
         {
             InitializeComponent();
             _mainform = mainform;
-            
+
         }
 
         private void btnGiris1_Click(object sender, EventArgs e)
         {
             string email = txtEmail1.Text;
             string pass = txtPass1.Text;
-            
+
 
             if (email == "" || pass == "")
             {
@@ -42,22 +42,27 @@ namespace DiyetOtomasyon.PL
             else
             {
                 PersonManager personManager = new PersonManager();
-                 LoginUser = personManager.FindUser(email, pass);
-                if (LoginUser.Email == "admin" && LoginUser.Password =="admin")
-                {
-                    Form5 form5 = new Form5();
-                    form5.Show();
-                    this.Close();
-                }
+                LoginUser = personManager.FindUser(email, pass);
                 
+
                 if (LoginUser != null)
                 {
-                    Program.LoginUserId = LoginUser.Id;
-                    Program.Person = LoginUser;
-                    // Kullanıcı bulundu login oldu 
-                    Form4 form4 = new Form4();
-                    form4.Show();
-                    this.Close();
+                    if (LoginUser.Email == "admin" && LoginUser.Password == "admin1")
+                    {
+                        Form5 form5 = new Form5();
+                        form5.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        Program.LoginUserId = LoginUser.Id;
+                        Program.Person = LoginUser;
+                        // Kullanıcı bulundu login oldu 
+                        Form4 form4 = new Form4();
+                        form4.Show();
+                        this.Close();
+                    }
+                   
                 }
                 else
                 {
@@ -73,6 +78,11 @@ namespace DiyetOtomasyon.PL
         {
             _mainform.Show();
             this.Close();
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
