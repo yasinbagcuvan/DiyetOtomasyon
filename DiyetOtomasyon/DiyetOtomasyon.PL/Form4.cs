@@ -214,8 +214,13 @@ namespace DiyetOtomasyon.PL
 
         private void Form4_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
-            
+
+
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

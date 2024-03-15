@@ -129,11 +129,11 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = SystemColors.GradientActiveCaption;
-            label1.Font = new Font("Symtext", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label1.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             label1.ForeColor = SystemColors.Highlight;
             label1.Location = new Point(6, 16);
             label1.Name = "label1";
-            label1.Size = new Size(191, 28);
+            label1.Size = new Size(161, 24);
             label1.TabIndex = 8;
             label1.Text = "YEMEK LISTESI";
             // 
@@ -185,6 +185,7 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Oğün İşleme";
             tabPage1.UseVisualStyleBackColor = true;
+            tabPage1.Click += tabPage1_Click;
             // 
             // cmbTip
             // 
@@ -212,11 +213,11 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = SystemColors.GradientActiveCaption;
-            label2.Font = new Font("Symtext", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label2.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             label2.ForeColor = SystemColors.Highlight;
             label2.Location = new Point(334, 36);
             label2.Name = "label2";
-            label2.Size = new Size(522, 28);
+            label2.Size = new Size(458, 24);
             label2.TabIndex = 13;
             label2.Text = "GUNLUK YENILEN YEMEKLER VE KALORILERI";
             // 

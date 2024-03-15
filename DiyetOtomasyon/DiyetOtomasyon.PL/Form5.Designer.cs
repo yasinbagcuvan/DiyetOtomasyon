@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
+            dgvAdminYemek = new DataGridView();
             btnYemekEkle = new Button();
             txtYemekAdi = new TextBox();
             txtYemekCalorie = new TextBox();
@@ -44,16 +44,18 @@
             btnPorsiyonGuncelle = new Button();
             btnOgunSil = new Button();
             btnOgnGunc = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvAdminYemek).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dgvAdminYemek
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 12);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(744, 150);
-            dataGridView1.TabIndex = 0;
+            dgvAdminYemek.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvAdminYemek.Location = new Point(12, 12);
+            dgvAdminYemek.Name = "dgvAdminYemek";
+            dgvAdminYemek.SelectionMode = DataGridViewSelectionMode.FullColumnSelect;
+            dgvAdminYemek.Size = new Size(744, 150);
+            dgvAdminYemek.TabIndex = 0;
+            dgvAdminYemek.CellClick += dgvAdminYemek_CellClick;
             // 
             // btnYemekEkle
             // 
@@ -142,6 +144,7 @@
             btnYemekSil.TabIndex = 10;
             btnYemekSil.Text = "Yemek Sil";
             btnYemekSil.UseVisualStyleBackColor = true;
+            btnYemekSil.Click += btnYemekSil_Click;
             // 
             // btnYemekGuncelle
             // 
@@ -151,6 +154,7 @@
             btnYemekGuncelle.TabIndex = 11;
             btnYemekGuncelle.Text = "Yemek Guncelle";
             btnYemekGuncelle.UseVisualStyleBackColor = true;
+            btnYemekGuncelle.Click += btnYemekGuncelle_Click;
             // 
             // btnPorsiyonSil
             // 
@@ -208,17 +212,17 @@
             Controls.Add(txtYemekCalorie);
             Controls.Add(txtYemekAdi);
             Controls.Add(btnYemekEkle);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvAdminYemek);
             Name = "Form5";
             Text = "Form5";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvAdminYemek).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView dgvAdminYemek;
         private Button btnYemekEkle;
         private TextBox txtYemekAdi;
         private TextBox txtYemekCalorie;
