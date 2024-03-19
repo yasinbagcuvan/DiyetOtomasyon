@@ -16,6 +16,9 @@ namespace DiyetOtomasyon.DAL.Context
         }
         public DbSet<Person> Persons { get; set; }
         public DbSet<Meal> Meals { get; set; }
+        public DbSet<PersonMeal> PersonMeals { get; set; }
+        public DbSet<MealTime> MealTimes { get; set; } 
+        public DbSet<Portion> Portions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

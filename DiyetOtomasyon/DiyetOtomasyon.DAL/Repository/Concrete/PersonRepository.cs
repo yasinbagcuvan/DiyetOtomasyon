@@ -9,11 +9,20 @@ using System.Threading.Tasks;
 
 namespace DiyetOtomasyon.DAL.Repository.Concrete
 {
-    public class PersonRepository : Repository<Person>
+    public class PersonRepository : Repository<Person>, IPersonRepository 
     {
         public PersonRepository(DiyetDbContext db) : base(db)
         {
 
         }
+        public Person FindUser(string Email, string Password)
+        {
+            return entities.Where(p => p.Email == Email && p.Password == Password).SingleOrDefault();
+        }
+        public Person FindUser(string Email)
+        {
+            return entities.Where(p => p.Email == Email).SingleOrDefault();
+        }
+
     }
 }

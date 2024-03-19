@@ -14,7 +14,11 @@ namespace DiyetOtomasyon.DAL.Entities
         public Person Person { get; set; }
         public int MealId { get; set; }
         public Meal Meal { get; set;}
+        public int MealTimeId { get; set; }
         public MealTime MealTime { get; set; }
-        public byte PortionSize { get; set; }
+        public Portion Portion { get; set; }
+        public int PortionId { get; set; }
+        
+
     }
 }

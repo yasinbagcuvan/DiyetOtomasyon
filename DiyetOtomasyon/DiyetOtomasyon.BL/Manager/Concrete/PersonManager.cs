@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DiyetOtomasyon.DAL.Repository.Abstract;
 
 namespace DiyetOtomasyon.BL.Manager.Concrete
 {
@@ -18,5 +19,20 @@ namespace DiyetOtomasyon.BL.Manager.Concrete
         {
             _repository = new PersonRepository(new DiyetDbContext());
         }
+        public PersonModel? FindUser(string Email, string Password)
+        {
+            IPersonRepository repo = _repository as IPersonRepository;
+            Person person=repo.FindUser(Email, Password);
+            return _mapper.Map<PersonModel>(person);
+        }
+        public PersonModel? FindUser(string Email)
+        {
+            IPersonRepository repo = _repository as IPersonRepository;
+            Person person = repo.FindUser(Email);
+            return _mapper.Map<PersonModel>(person);
+        }
+
+
+
     }
 }

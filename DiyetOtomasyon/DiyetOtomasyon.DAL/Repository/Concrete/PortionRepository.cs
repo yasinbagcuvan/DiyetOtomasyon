@@ -9,12 +9,11 @@ using System.Threading.Tasks;
 
 namespace DiyetOtomasyon.DAL.Repository.Concrete
 {
-    public class PersonMealRepository : Repository<PersonMeal>
+    public class PortionRepository : Repository<Portion>
     {
-        public PersonMealRepository(DiyetDbContext db) : base(db)
+        public PortionRepository(DiyetDbContext db) : base(db)
         {
 
         }
-
     }
 }

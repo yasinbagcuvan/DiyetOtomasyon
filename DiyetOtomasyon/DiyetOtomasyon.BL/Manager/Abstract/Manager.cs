@@ -18,7 +18,7 @@ namespace DiyetOtomasyon.BL.Manager.Abstract
         where TEntity : class
         where TMapperProfile : Profile, new()
     {
-        private IMapper _mapper;
+        protected IMapper _mapper;
         protected IRepository<TEntity> _repository;
         protected MapperConfiguration _config;
 
@@ -82,22 +82,10 @@ namespace DiyetOtomasyon.BL.Manager.Abstract
 
         public List<TModel> Search(Expression<Func<TModel, bool>> predicate)
         {
-            //önce hakiki ürünleri predicate'e göre (filtereye göre) getir.
-            //sonra bu filtrelenmiş ürünleri kullanıcının muhattap olacağı model listesi olarak döndür.
-
-
-            //daha da öncesinde metodan gelecek olan tmodel predicate'i de entity predicateine eşleştirmemiz gerekir.
 
             Expression<Func<TEntity, bool>> predicateEntities = _mapper.Map<Expression<Func<TEntity, bool>>>(predicate);
 
-            //sonra bu tentity predicate ini kullanarak repository'nin search'ünü kullanacağız.
-            //ve filtreli verileri TEntity cinsinden alacağız.
-
-            //son olarak da bunu istenen şekle TModel listesine eşleştireceğiz.
-
             List<TEntity> filteredEntitiesFromDb = _repository.Search(predicateEntities).ToList();
-
-            //şimdi de bu filtrelenmiş entitiy'ler içerisinden gezinerek hepsini TModel entity'ye çevirip listeye atalı ve döndürelim.
 
             List<TModel> models = new List<TModel>();
 
@@ -108,9 +96,6 @@ namespace DiyetOtomasyon.BL.Manager.Abstract
             }
 
             return models;
-
-
-
         }
 
         public void Update(TModel model)

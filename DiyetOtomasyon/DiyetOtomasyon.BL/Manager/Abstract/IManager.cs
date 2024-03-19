@@ -33,7 +33,7 @@ namespace DiyetOtomasyon.BL.Manager.Abstract
         //Yani belleğe yüklecek.
 
         public List<TModel> GetAll();
-
+       
 
         //burada kriter yazılacak. Bu kritere göre arama yapılıp sonuç gelecek. (ya da yoksa gelmeyecek :) )
         public List<TModel> Search(Expression<Func<TModel, bool>> predicate);

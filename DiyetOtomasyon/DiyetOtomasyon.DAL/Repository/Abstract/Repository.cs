@@ -15,13 +15,13 @@ namespace DiyetOtomasyon.DAL.Repository.Abstract
 
     public abstract class Repository<T> : IRepository<T> where T : Entity, new()
     {
-        private readonly DiyetDbContext _db;
+        protected readonly DiyetDbContext _db;
         //neden entities?
         //çünkü hangi türde varlıklar olduğunu bilmiyoruz.
         //T yerine ne gönderilirse o olacak 
 
         //gönderilecek tipte olan varlıklarımız 
-        private DbSet<T> entities;
+        protected DbSet<T> entities;
 
         public Repository(DiyetDbContext db)
         {
@@ -138,6 +138,9 @@ namespace DiyetOtomasyon.DAL.Repository.Abstract
             return query;
 
         }
+
+        
     }
+    
 }
 

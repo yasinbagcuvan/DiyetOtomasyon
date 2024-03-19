@@ -4,6 +4,7 @@ using DiyetOtomasyon.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DiyetOtomasyon.DAL.Migrations
 {
     [DbContext(typeof(DiyetDbContext))]
-    partial class DiyetDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240319162032_Guncellendi3")]
+    partial class Guncellendi3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +43,7 @@ namespace DiyetOtomasyon.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MealName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -172,8 +175,9 @@ namespace DiyetOtomasyon.DAL.Migrations
                     b.Property<int?>("PortionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Size")
-                        .HasColumnType("int");
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

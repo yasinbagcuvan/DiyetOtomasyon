@@ -1,7 +1,11 @@
+using DiyetOtomasyon.BL.Models;
+
 namespace DiyetOtomasyon.PL
 {
     internal static class Program
     {
+        public static int LoginUserId { get; set; }
+        public static PersonModel Person { get; set; }
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>

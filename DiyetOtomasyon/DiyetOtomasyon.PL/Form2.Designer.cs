@@ -1,0 +1,155 @@
+﻿namespace DiyetOtomasyon.PL
+{
+    partial class Form2
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            lblAd = new Label();
+            lblSoyad = new Label();
+            lblEposta = new Label();
+            lblPass = new Label();
+            txtAd = new TextBox();
+            txtSoyad = new TextBox();
+            txtEmail = new TextBox();
+            txtPass = new TextBox();
+            btnKayitEkle = new Button();
+            SuspendLayout();
+            // 
+            // lblAd
+            // 
+            lblAd.AutoSize = true;
+            lblAd.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            lblAd.Location = new Point(30, 43);
+            lblAd.Name = "lblAd";
+            lblAd.Size = new Size(67, 21);
+            lblAd.TabIndex = 0;
+            lblAd.Text = "Adınız :";
+            // 
+            // lblSoyad
+            // 
+            lblSoyad.AutoSize = true;
+            lblSoyad.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            lblSoyad.Location = new Point(30, 79);
+            lblSoyad.Name = "lblSoyad";
+            lblSoyad.Size = new Size(93, 21);
+            lblSoyad.TabIndex = 1;
+            lblSoyad.Text = "Soyadınız :";
+            // 
+            // lblEposta
+            // 
+            lblEposta.AutoSize = true;
+            lblEposta.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            lblEposta.Location = new Point(30, 117);
+            lblEposta.Name = "lblEposta";
+            lblEposta.Size = new Size(65, 21);
+            lblEposta.TabIndex = 2;
+            lblEposta.Text = "Email : ";
+            // 
+            // lblPass
+            // 
+            lblPass.AutoSize = true;
+            lblPass.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            lblPass.Location = new Point(30, 157);
+            lblPass.Name = "lblPass";
+            lblPass.Size = new Size(53, 21);
+            lblPass.TabIndex = 3;
+            lblPass.Text = "Şifre :";
+            lblPass.Click += label3_Click;
+            // 
+            // txtAd
+            // 
+            txtAd.Location = new Point(129, 41);
+            txtAd.Name = "txtAd";
+            txtAd.Size = new Size(100, 23);
+            txtAd.TabIndex = 4;
+            // 
+            // txtSoyad
+            // 
+            txtSoyad.Location = new Point(129, 77);
+            txtSoyad.Name = "txtSoyad";
+            txtSoyad.Size = new Size(100, 23);
+            txtSoyad.TabIndex = 5;
+            // 
+            // txtEmail
+            // 
+            txtEmail.Location = new Point(129, 115);
+            txtEmail.Name = "txtEmail";
+            txtEmail.Size = new Size(100, 23);
+            txtEmail.TabIndex = 6;
+            // 
+            // txtPass
+            // 
+            txtPass.Location = new Point(129, 155);
+            txtPass.Name = "txtPass";
+            txtPass.PasswordChar = '*';
+            txtPass.Size = new Size(100, 23);
+            txtPass.TabIndex = 7;
+            // 
+            // btnKayitEkle
+            // 
+            btnKayitEkle.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btnKayitEkle.Location = new Point(30, 211);
+            btnKayitEkle.Name = "btnKayitEkle";
+            btnKayitEkle.Size = new Size(199, 34);
+            btnKayitEkle.TabIndex = 8;
+            btnKayitEkle.Text = "KAYIT OL";
+            btnKayitEkle.UseVisualStyleBackColor = true;
+            btnKayitEkle.Click += btnKayitEkle_Click;
+            // 
+            // Form2
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(265, 266);
+            Controls.Add(btnKayitEkle);
+            Controls.Add(txtPass);
+            Controls.Add(txtEmail);
+            Controls.Add(txtSoyad);
+            Controls.Add(txtAd);
+            Controls.Add(lblPass);
+            Controls.Add(lblEposta);
+            Controls.Add(lblSoyad);
+            Controls.Add(lblAd);
+            Name = "Form2";
+            Text = "Form2";
+            ResumeLayout(false);
+            PerformLayout();
+        }
+
+        #endregion
+
+        private Label lblAd;
+        private Label lblSoyad;
+        private Label lblEposta;
+        private Label lblPass;
+        private TextBox txtAd;
+        private TextBox txtSoyad;
+        private TextBox txtEmail;
+        private TextBox txtPass;
+        private Button btnKayitEkle;
+    }
+}

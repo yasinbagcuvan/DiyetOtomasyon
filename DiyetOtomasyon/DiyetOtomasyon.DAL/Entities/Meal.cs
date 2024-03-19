@@ -10,7 +10,7 @@ namespace DiyetOtomasyon.DAL.Entities
 {
     public class Meal : Entity
     {
-        public string Name { get; set; }
+        public string MealName { get; set; }
         public string Description { get; set; }
         public short Calorie {  get; set; }
         //public ICollection<Person> Persons { get; set; }

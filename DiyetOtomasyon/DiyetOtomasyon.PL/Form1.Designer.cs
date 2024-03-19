@@ -28,32 +28,65 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
+            lblHosgeldiniz = new Label();
+            btnGiris = new Button();
+            btnKayit = new Button();
             SuspendLayout();
             // 
-            // button1
+            // lblHosgeldiniz
             // 
-            button1.Location = new Point(494, 174);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            lblHosgeldiniz.AutoSize = true;
+            lblHosgeldiniz.BackColor = SystemColors.GradientInactiveCaption;
+            lblHosgeldiniz.Font = new Font("Symtext", 18F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            lblHosgeldiniz.ForeColor = SystemColors.MenuHighlight;
+            lblHosgeldiniz.Location = new Point(151, 35);
+            lblHosgeldiniz.Name = "lblHosgeldiniz";
+            lblHosgeldiniz.Size = new Size(503, 35);
+            lblHosgeldiniz.TabIndex = 0;
+            lblHosgeldiniz.Text = "DIYET UYGULAMASINA HOSGELDINIZ";
+            lblHosgeldiniz.Click += lblHosgeldiniz_Click;
+            // 
+            // btnGiris
+            // 
+            btnGiris.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btnGiris.Location = new Point(276, 151);
+            btnGiris.Name = "btnGiris";
+            btnGiris.Size = new Size(232, 52);
+            btnGiris.TabIndex = 1;
+            btnGiris.Text = "Giriş Yap";
+            btnGiris.UseVisualStyleBackColor = true;
+            btnGiris.Click += btnGiris_Click;
+            // 
+            // btnKayit
+            // 
+            btnKayit.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btnKayit.Location = new Point(276, 247);
+            btnKayit.Name = "btnKayit";
+            btnKayit.Size = new Size(232, 52);
+            btnKayit.TabIndex = 2;
+            btnKayit.Text = "Kayıt Ol";
+            btnKayit.UseVisualStyleBackColor = true;
+            btnKayit.Click += btnKayit_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button1);
+            Controls.Add(btnKayit);
+            Controls.Add(btnGiris);
+            Controls.Add(lblHosgeldiniz);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private Button button1;
+        private Label lblHosgeldiniz;
+        private Button btnGiris;
+        private Button btnKayit;
     }
 }
