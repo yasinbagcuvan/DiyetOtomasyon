@@ -11,14 +11,14 @@ namespace DiyetOtomasyon.BL.Models
 {
     public class PersonMealModel
     {
-        public int PersonId { get; set; }
-        public Person Person { get; set; }
-        public int MealId { get; set; }
-        public Meal Meal { get; set; }
-        public int MealTimeId { get; set; }
-        public MealTime MealTime { get; set; }
-        public int PortionId { get; set; }
-        public Portion Portion { get; set; }
+        public  int PersonId { get; set; }
+        public  PersonModel Person { get; set; }
+        public  int MealId { get; set; }
+        public  MealModel Meal { get; set; }
+        public  int MealTimeId { get; set; }
+        public  MealTimeModel MealTime { get; set; }
+        public  int PortionId { get; set; }
+        public  PortionModel Portion { get; set; }
         public DateTime CreatedDate { get; set; }
         public Status Status { get; set; }
     }

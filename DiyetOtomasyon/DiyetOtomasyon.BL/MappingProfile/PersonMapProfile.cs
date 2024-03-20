@@ -14,14 +14,18 @@ namespace DiyetOtomasyon.BL.MappingProfile
     {
         public PersonMapProfile()
         {
-                 CreateMap<PersonModel, Person>().
+
+            CreateMap<IEnumerable<PersonMeal>,Person>();
+
+            CreateMap<PersonModel,Person >().
                 ForMember(a => a.Id, b => b.MapFrom(src => src.Id)).
                 ForMember(a => a.Email, b => b.MapFrom(src => src.Email)).
                 ForMember(a => a.Status, b => b.MapFrom(src => src.Status)).
                 ForMember(a => a.FirstName, b => b.MapFrom(src => src.FirstName)).
                 ForMember(a => a.LastName, b => b.MapFrom(src => src.LastName)).
                 ForMember(a => a.Password, b => b.MapFrom(src => src.Password)).
-                ReverseMap();
+                //ForMember(a => a.PersonMeals, b => b.MapFrom(src => src.PersonMeals)).
+            ReverseMap();
 
         }
     }

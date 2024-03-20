@@ -18,9 +18,38 @@ namespace DiyetOtomasyon.DAL.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("DiyetOtomasyon.DAL.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
 
             modelBuilder.Entity("DiyetOtomasyon.DAL.Entities.Meal", b =>
                 {
@@ -32,6 +61,9 @@ namespace DiyetOtomasyon.DAL.Migrations
 
                     b.Property<short>("Calorie")
                         .HasColumnType("smallint");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -52,6 +84,8 @@ namespace DiyetOtomasyon.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Meals");
                 });
 
@@ -66,9 +100,6 @@ namespace DiyetOtomasyon.DAL.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("MealTimeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -80,8 +111,6 @@ namespace DiyetOtomasyon.DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MealTimeId");
 
                     b.ToTable("MealTimes");
                 });
@@ -169,9 +198,6 @@ namespace DiyetOtomasyon.DAL.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PortionId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Size")
                         .HasColumnType("int");
 
@@ -187,16 +213,18 @@ namespace DiyetOtomasyon.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PortionId");
-
                     b.ToTable("Portions");
                 });
 
-            modelBuilder.Entity("DiyetOtomasyon.DAL.Entities.MealTime", b =>
+            modelBuilder.Entity("DiyetOtomasyon.DAL.Entities.Meal", b =>
                 {
-                    b.HasOne("DiyetOtomasyon.DAL.Entities.MealTime", null)
-                        .WithMany("PersonMeals")
-                        .HasForeignKey("MealTimeId");
+                    b.HasOne("DiyetOtomasyon.DAL.Entities.Category", "Category")
+                        .WithMany("Meals")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("DiyetOtomasyon.DAL.Entities.PersonMeal", b =>
@@ -208,7 +236,7 @@ namespace DiyetOtomasyon.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("DiyetOtomasyon.DAL.Entities.MealTime", "MealTime")
-                        .WithMany()
+                        .WithMany("PersonMeals")
                         .HasForeignKey("MealTimeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -220,7 +248,7 @@ namespace DiyetOtomasyon.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("DiyetOtomasyon.DAL.Entities.Portion", "Portion")
-                        .WithMany()
+                        .WithMany("PersonMeals")
                         .HasForeignKey("PortionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -234,11 +262,9 @@ namespace DiyetOtomasyon.DAL.Migrations
                     b.Navigation("Portion");
                 });
 
-            modelBuilder.Entity("DiyetOtomasyon.DAL.Entities.Portion", b =>
+            modelBuilder.Entity("DiyetOtomasyon.DAL.Entities.Category", b =>
                 {
-                    b.HasOne("DiyetOtomasyon.DAL.Entities.Portion", null)
-                        .WithMany("PersonMeals")
-                        .HasForeignKey("PortionId");
+                    b.Navigation("Meals");
                 });
 
             modelBuilder.Entity("DiyetOtomasyon.DAL.Entities.Meal", b =>

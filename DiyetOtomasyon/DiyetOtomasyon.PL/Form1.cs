@@ -57,13 +57,14 @@ namespace DiyetOtomasyon.PL
 
         private void btnGiris_Click(object sender, EventArgs e)
         {
-            Form3 form3 = new Form3(this);
+            Form3 form3 = new Form3();
             form3.Show();
             this.Hide();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Program.MainForm = this;
 
         }
     }

@@ -1,4 +1,5 @@
-﻿using DiyetOtomasyon.DAL.Enums;
+﻿using DiyetOtomasyon.DAL.Entities;
+using DiyetOtomasyon.DAL.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace DiyetOtomasyon.BL.Models
         public int Id { get; set; }
         public string Type { get; set; }
         public int Size { get; set; }
+        //public List<PersonMealModel> PersonMeals { get; set; }
 
         public override string ToString()
         {

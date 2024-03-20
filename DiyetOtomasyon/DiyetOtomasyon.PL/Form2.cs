@@ -50,7 +50,7 @@ namespace DiyetOtomasyon.PL
 
             else
             {
-                var tempUser = personManager.FindUser(txtEmail.Text);
+                var tempUser = personManager.FindUser(txtEmail.Text,txtPass.Text);
                 if (tempUser != null)
                 {
                     MessageBox.Show("Zaten Kayıtlı", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);

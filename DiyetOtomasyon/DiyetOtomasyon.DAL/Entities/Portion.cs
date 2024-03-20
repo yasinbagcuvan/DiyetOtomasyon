@@ -11,7 +11,7 @@ namespace DiyetOtomasyon.DAL.Entities
     {
         public string Type { get; set; }
         public int Size  { get; set; }
-        public ICollection<Portion> PersonMeals { get; set; }
+        public virtual List<PersonMeal> PersonMeals { get; set; }
         public override string ToString()
         {
             return Type;

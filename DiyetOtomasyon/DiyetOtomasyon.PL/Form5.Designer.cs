@@ -46,10 +46,17 @@
             btnOgnGunc = new Button();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            cmbKategori = new ComboBox();
             tabPage2 = new TabPage();
             dgvPorsiyon = new DataGridView();
             tabPage3 = new TabPage();
             dgvOgun = new DataGridView();
+            tabPage4 = new TabPage();
+            dgvKategoriList = new DataGridView();
+            txtKatAdi = new TextBox();
+            btnGunCat = new Button();
+            btnEkleCat = new Button();
+            btnSilKat = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvAdminYemek).BeginInit();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -57,6 +64,8 @@
             ((System.ComponentModel.ISupportInitialize)dgvPorsiyon).BeginInit();
             tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOgun).BeginInit();
+            tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvKategoriList).BeginInit();
             SuspendLayout();
             // 
             // dgvAdminYemek
@@ -134,7 +143,7 @@
             // 
             // btnOgunEkle
             // 
-            btnOgunEkle.Location = new Point(35, 379);
+            btnOgunEkle.Location = new Point(38, 370);
             btnOgunEkle.Name = "btnOgunEkle";
             btnOgunEkle.Size = new Size(197, 35);
             btnOgunEkle.TabIndex = 8;
@@ -144,7 +153,7 @@
             // 
             // txtOgunAdi
             // 
-            txtOgunAdi.Location = new Point(394, 307);
+            txtOgunAdi.Location = new Point(397, 298);
             txtOgunAdi.Name = "txtOgunAdi";
             txtOgunAdi.PlaceholderText = "Ogün Adi";
             txtOgunAdi.Size = new Size(121, 23);
@@ -192,7 +201,7 @@
             // 
             // btnOgunSil
             // 
-            btnOgunSil.Location = new Point(35, 337);
+            btnOgunSil.Location = new Point(38, 328);
             btnOgunSil.Name = "btnOgunSil";
             btnOgunSil.Size = new Size(197, 36);
             btnOgunSil.TabIndex = 14;
@@ -202,7 +211,7 @@
             // 
             // btnOgnGunc
             // 
-            btnOgnGunc.Location = new Point(35, 297);
+            btnOgnGunc.Location = new Point(38, 288);
             btnOgnGunc.Name = "btnOgnGunc";
             btnOgnGunc.Size = new Size(197, 33);
             btnOgnGunc.TabIndex = 15;
@@ -215,6 +224,7 @@
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
+            tabControl1.Controls.Add(tabPage4);
             tabControl1.Location = new Point(1, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -223,6 +233,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(cmbKategori);
             tabPage1.Controls.Add(dgvAdminYemek);
             tabPage1.Controls.Add(btnYemekEkle);
             tabPage1.Controls.Add(txtYemekAdi);
@@ -237,6 +248,15 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Yemek Ekle";
             tabPage1.UseVisualStyleBackColor = true;
+            tabPage1.Click += tabPage1_Click;
+            // 
+            // cmbKategori
+            // 
+            cmbKategori.FormattingEnabled = true;
+            cmbKategori.Location = new Point(326, 360);
+            cmbKategori.Name = "cmbKategori";
+            cmbKategori.Size = new Size(121, 23);
+            cmbKategori.TabIndex = 12;
             // 
             // tabPage2
             // 
@@ -281,10 +301,71 @@
             // dgvOgun
             // 
             dgvOgun.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvOgun.Location = new Point(21, 15);
+            dgvOgun.Location = new Point(24, 6);
             dgvOgun.Name = "dgvOgun";
             dgvOgun.Size = new Size(721, 216);
             dgvOgun.TabIndex = 16;
+            // 
+            // tabPage4
+            // 
+            tabPage4.Controls.Add(dgvKategoriList);
+            tabPage4.Controls.Add(txtKatAdi);
+            tabPage4.Controls.Add(btnGunCat);
+            tabPage4.Controls.Add(btnEkleCat);
+            tabPage4.Controls.Add(btnSilKat);
+            tabPage4.Location = new Point(4, 24);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Padding = new Padding(3);
+            tabPage4.Size = new Size(789, 424);
+            tabPage4.TabIndex = 3;
+            tabPage4.Text = "Kategori Ekle";
+            tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // dgvKategoriList
+            // 
+            dgvKategoriList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvKategoriList.Location = new Point(34, 13);
+            dgvKategoriList.Name = "dgvKategoriList";
+            dgvKategoriList.Size = new Size(721, 216);
+            dgvKategoriList.TabIndex = 21;
+            // 
+            // txtKatAdi
+            // 
+            txtKatAdi.Location = new Point(407, 305);
+            txtKatAdi.Name = "txtKatAdi";
+            txtKatAdi.PlaceholderText = "Kategori Adi";
+            txtKatAdi.Size = new Size(121, 23);
+            txtKatAdi.TabIndex = 18;
+            // 
+            // btnGunCat
+            // 
+            btnGunCat.Location = new Point(48, 295);
+            btnGunCat.Name = "btnGunCat";
+            btnGunCat.Size = new Size(197, 33);
+            btnGunCat.TabIndex = 20;
+            btnGunCat.Text = "Kategori Guncelle";
+            btnGunCat.UseVisualStyleBackColor = true;
+            btnGunCat.Click += btnGunCat_Click;
+            // 
+            // btnEkleCat
+            // 
+            btnEkleCat.Location = new Point(48, 377);
+            btnEkleCat.Name = "btnEkleCat";
+            btnEkleCat.Size = new Size(197, 35);
+            btnEkleCat.TabIndex = 17;
+            btnEkleCat.Text = "Kategori Ekle";
+            btnEkleCat.UseVisualStyleBackColor = true;
+            btnEkleCat.Click += btnEkleCat_Click;
+            // 
+            // btnSilKat
+            // 
+            btnSilKat.Location = new Point(48, 335);
+            btnSilKat.Name = "btnSilKat";
+            btnSilKat.Size = new Size(197, 36);
+            btnSilKat.TabIndex = 19;
+            btnSilKat.Text = "Kategori Sil";
+            btnSilKat.UseVisualStyleBackColor = true;
+            btnSilKat.Click += btnSilKat_Click;
             // 
             // Form5
             // 
@@ -293,7 +374,9 @@
             ClientSize = new Size(800, 450);
             Controls.Add(tabControl1);
             Name = "Form5";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Form5";
+            FormClosed += Form5_FormClosed;
             Load += Form5_Load;
             ((System.ComponentModel.ISupportInitialize)dgvAdminYemek).EndInit();
             tabControl1.ResumeLayout(false);
@@ -305,6 +388,9 @@
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOgun).EndInit();
+            tabPage4.ResumeLayout(false);
+            tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvKategoriList).EndInit();
             ResumeLayout(false);
         }
 
@@ -332,5 +418,12 @@
         private DataGridView dgvPorsiyon;
         private TabPage tabPage3;
         private DataGridView dgvOgun;
+        private TabPage tabPage4;
+        private DataGridView dgvKategoriList;
+        private TextBox txtKatAdi;
+        private Button btnGunCat;
+        private Button btnEkleCat;
+        private Button btnSilKat;
+        private ComboBox cmbKategori;
     }
 }

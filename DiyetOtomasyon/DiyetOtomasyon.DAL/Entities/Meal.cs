@@ -14,6 +14,8 @@ namespace DiyetOtomasyon.DAL.Entities
         public string Description { get; set; }
         public short Calorie {  get; set; }
         //public ICollection<Person> Persons { get; set; }
-        public ICollection<PersonMeal> PersonMeals { get; set; }
+        public virtual List<PersonMeal> PersonMeals { get; set; }
+        public virtual Category Category { get; set; }
+        public  int CategoryId { get; set; }
     }
 }

@@ -105,7 +105,9 @@
             Controls.Add(btnGiris1);
             Controls.Add(lblEmail1);
             Name = "Form3";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Form3";
+            FormClosed += Form3_FormClosed;
             Load += Form3_Load;
             ResumeLayout(false);
             PerformLayout();

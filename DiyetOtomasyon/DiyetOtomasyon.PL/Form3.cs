@@ -15,14 +15,14 @@ namespace DiyetOtomasyon.PL
     public partial class Form3 : Form
     {
         private readonly Form _mainform;
-        public PersonModel person;
         PersonManager PersonManager = new PersonManager();
         public PersonModel LoginUser;
 
-        public Form3(Form mainform = null)
+        public Form3()
         {
             InitializeComponent();
-            _mainform = mainform;
+            _mainform = Program.MainForm;
+            Program.ActiveForm = this;
 
         }
 
@@ -43,7 +43,7 @@ namespace DiyetOtomasyon.PL
             {
                 PersonManager personManager = new PersonManager();
                 LoginUser = personManager.FindUser(email, pass);
-                
+
 
                 if (LoginUser != null)
                 {
@@ -51,7 +51,7 @@ namespace DiyetOtomasyon.PL
                     {
                         Form5 form5 = new Form5();
                         form5.Show();
-                        this.Close();
+                        this.Dispose();
                     }
                     else
                     {
@@ -60,9 +60,9 @@ namespace DiyetOtomasyon.PL
                         // Kullanıcı bulundu login oldu 
                         Form4 form4 = new Form4();
                         form4.Show();
-                        this.Close();
+                        this.Dispose();
                     }
-                   
+
                 }
                 else
                 {
@@ -76,13 +76,18 @@ namespace DiyetOtomasyon.PL
 
         private void btnGeriDon_Click(object sender, EventArgs e)
         {
-            _mainform.Show();
+            
             this.Close();
         }
 
         private void Form3_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form3_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _mainform.Show();
         }
     }
 }

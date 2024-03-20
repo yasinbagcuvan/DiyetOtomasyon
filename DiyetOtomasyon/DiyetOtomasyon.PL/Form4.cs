@@ -23,12 +23,17 @@ namespace DiyetOtomasyon.PL
         PersonMealModel PersonMealModel = new PersonMealModel();
         PortionModel Portion = new PortionModel();
         PortionManager PortionManager = new PortionManager();
-
-
+        Form _refForm;
+        Form _mainForm;
 
         public Form4()
         {
+            _mainForm = Program.MainForm;
 
+            //Olaki buraya gelen forma ulaşmak istersem 
+            _refForm = Program.ActiveForm;
+            Program.ActiveForm = this;
+            _mainForm.Hide();
             InitializeComponent();
         }
 
@@ -39,6 +44,7 @@ namespace DiyetOtomasyon.PL
 
         private void Form4_Load(object sender, EventArgs e)
         {
+            
             MealManager manager = new MealManager();
             MealTimeManager mealTime = new MealTimeManager();
             PortionManager portionManager = new PortionManager();
@@ -47,6 +53,7 @@ namespace DiyetOtomasyon.PL
             MessageBox.Show("UserId : " + Program.LoginUserId);
             MessageBox.Show("UserName : " + Program.Person.FirstName);
             cmbTip.DataSource = portionManager.GetAll();
+            
 
         }
 
@@ -60,7 +67,7 @@ namespace DiyetOtomasyon.PL
 
         private void btnEkleYemek_Click(object sender, EventArgs e)
         {
-            if (txtAdet.Text == "" || cmbOgun.SelectedText == null || cmbTip.SelectedText == null)
+            if (txtAdet.Text == "" || cmbOgun.SelectedText == null || cmbTip.SelectedText == null || selectedMeal == null)
             {
                 MessageBox.Show("Lütfen boş alan bırakmayınız", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -77,6 +84,7 @@ namespace DiyetOtomasyon.PL
 
                 PersonMealModel.PortionId = Portion.Id;
                 manager.Add(PersonMealModel);
+                MessageBox.Show($"{selectedMeal.MealName} {mealTime.Name} öğününe {Portion.Size} {Portion.Type} eklenmiştir  ", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
         }
@@ -134,7 +142,7 @@ namespace DiyetOtomasyon.PL
                             join m in mealManager.GetAll() on pm.MealId equals m.Id
                             join mt in mealTimeManager.GetAll() on pm.MealTimeId equals mt.Id
                             join pt in portionManager.GetAll() on pm.PortionId equals pt.Id
-                            where p.Id == Program.LoginUserId
+                            //where p.Id == Program.LoginUserId
                             where (DateTime.Now.Day) - (pm.CreatedDate.Day) <= 7
                             group pm by new
                             {
@@ -166,7 +174,7 @@ namespace DiyetOtomasyon.PL
                             join m in mealManager.GetAll() on pm.MealId equals m.Id
                             join mt in mealTimeManager.GetAll() on pm.MealTimeId equals mt.Id
                             join pt in portionManager.GetAll() on pm.PortionId equals pt.Id
-                            where p.Id == Program.LoginUserId
+                            //where p.Id == Program.LoginUserId
                             where (DateTime.Now.Day) - (pm.CreatedDate.Day) <= 30
                             group pm by new
                             {
@@ -214,7 +222,7 @@ namespace DiyetOtomasyon.PL
 
         private void Form4_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            _mainForm.Show();
 
         }
 

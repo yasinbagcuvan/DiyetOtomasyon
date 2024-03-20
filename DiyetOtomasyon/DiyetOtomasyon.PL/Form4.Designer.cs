@@ -71,7 +71,7 @@
             dgvYemekListesi.Location = new Point(7, 58);
             dgvYemekListesi.Name = "dgvYemekListesi";
             dgvYemekListesi.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvYemekListesi.Size = new Size(432, 121);
+            dgvYemekListesi.Size = new Size(750, 121);
             dgvYemekListesi.TabIndex = 0;
             dgvYemekListesi.CellContentClick += dataGridView1_CellContentClick;
             dgvYemekListesi.MouseClick += dgvYemekListesi_MouseClick;
@@ -333,6 +333,7 @@
             ClientSize = new Size(1402, 596);
             Controls.Add(tabControl1);
             Name = "Form4";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Form4";
             FormClosing += Form4_FormClosing;
             Load += Form4_Load;

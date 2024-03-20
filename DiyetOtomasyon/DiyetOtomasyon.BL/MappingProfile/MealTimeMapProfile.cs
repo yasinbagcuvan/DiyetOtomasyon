@@ -13,9 +13,11 @@ namespace DiyetOtomasyon.BL.MappingProfile
     {
         public MealTimeMapProfile()
         {
+           // CreateMap<PersonMealModel, PersonMeal>().ReverseMap();
             CreateMap<MealTimeModel, MealTime>().
             ForMember(a => a.Id, b => b.MapFrom(src => src.Id)).
             ForMember(a => a.Name, b => b.MapFrom(src => src.Name)).
+            //ForMember(a => a.PersonMeals, b => b.MapFrom(src => src.PersonMeals)).
             ReverseMap();
         }
     }

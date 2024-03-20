@@ -6,6 +6,8 @@ namespace DiyetOtomasyon.PL
     {
         public static int LoginUserId { get; set; }
         public static PersonModel Person { get; set; }
+        public static Form MainForm { get; set; }
+        public static Form ActiveForm { get; set; }
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>

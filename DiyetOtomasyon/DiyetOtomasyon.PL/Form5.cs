@@ -21,13 +21,31 @@ namespace DiyetOtomasyon.PL
         MealModel selectedMeal;
         PortionModel selectedPortion;
         MealTimeModel selecetedMealTime;
-
+        CategoryModel selectedCategory;
+        CategoryManager categoryManager = new CategoryManager();
+        Form _refForm;
+        Form _mainForm;
 
         public Form5()
         {
+            _mainForm = Program.MainForm;
+
+            //Olaki buraya gelen forma ulaşmak istersem 
+            _refForm = Program.ActiveForm;
+            Program.ActiveForm = this;
+            _mainForm.Hide();
             InitializeComponent();
         }
 
+        private void Form5_Load(object sender, EventArgs e)
+        {
+
+            dgvAdminYemek.DataSource = mealManager.GetAll();
+            dgvPorsiyon.DataSource = portionManager.GetAll();
+            dgvOgun.DataSource = timeManager.GetAll();
+            dgvKategoriList.DataSource = categoryManager.GetAll();
+            RefreshKategori();
+        }
         private void txtPorsiyonAdet_TextChanged(object sender, EventArgs e)
         {
 
@@ -51,34 +69,37 @@ namespace DiyetOtomasyon.PL
 
         private void btnYemekEkle_Click(object sender, EventArgs e)
         {
-            foreach (var item in mealManager.GetAll())
+            if (!mealManager.GetAll().Where(m => m.MealName == txtYemekAdi.Text).Any())
             {
-                if (item.MealName == txtYemekAdi.Text)
+                if (txtYemekAdi.Text == "" || txtYemekCalorie.Text == "" || cmbKategori.SelectedItem == null)
                 {
-                    MessageBox.Show("ZATEN BÖYLE BİR YEMEK VAR", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("LÜTFEN BOŞ ALANLARI DOLDURUNUZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-            }
-            if (txtYemekAdi.Text == "" || txtYemekCalorie.Text == "")
-            {
-                MessageBox.Show("YEMEK ADI VEYA KALORI BOŞ OLAMAZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                else
+                {
 
+                    MealModel meal = new MealModel();
+                    meal.Calorie = short.Parse(txtYemekCalorie.Text);
+                    meal.MealName = txtYemekAdi.Text;
+                    meal.Description = txtYemekAciklama.Text;
+                    KeyValuePair<int, string> selectedCategory = (KeyValuePair<int, string>)cmbKategori.SelectedItem;
+                    meal.CategoryId = selectedCategory.Key;
+                    //var meals = mealManager.GetAllWithIncludes(cmbKategori.SelectedItem.ToString()).Single();
+                    //meal.Category.CategoryName = meals.Category.CategoryName;
+                    mealManager.Add(meal);
+                    MessageBox.Show("Yemek Eklenmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtYemekAdi.Text = "";
+                    txtYemekCalorie.Text = "";
+                    txtYemekAciklama.Text = "";
+                    dgvAdminYemek.DataSource = mealManager.GetAll();
+                    selectedMeal = null;
+                }
+            }
             else
             {
-                MealModel meal = new MealModel();
-                meal.Calorie = short.Parse(txtYemekCalorie.Text);
-                meal.MealName = txtYemekAdi.Text;
-                meal.Description = txtYemekAciklama.Text;
-                mealManager.Add(meal);
-                MessageBox.Show("Yemek Eklenmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                txtYemekAdi.Text = "";
-                txtYemekCalorie.Text = "";
-                txtYemekAciklama.Text = "";
-                dgvAdminYemek.DataSource = mealManager.GetAll();
-                selectedMeal = null;
+                MessageBox.Show("ZATEN BÖYLE BİR YEMEK VAR", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private void btnYemekSil_Click(object sender, EventArgs e)
@@ -149,13 +170,13 @@ namespace DiyetOtomasyon.PL
             }
         }
 
-        private void Form5_Load(object sender, EventArgs e)
-        {
-            dgvAdminYemek.DataSource = mealManager.GetAll();
-            dgvPorsiyon.DataSource = portionManager.GetAll();
-            dgvOgun.DataSource = timeManager.GetAll();
-        }
 
+        private void RefreshKategori()
+        {
+            cmbKategori.DataSource = categoryManager.GetAll().Select(c => new KeyValuePair<int, string>(key: c.Id, value: c.CategoryName)).ToList();
+            cmbKategori.DisplayMember = "value";
+            cmbKategori.ValueMember = "key";
+        }
         private void btnPorsiyonEkle_Click(object sender, EventArgs e)
         {
             foreach (var item in portionManager.GetAll())
@@ -183,6 +204,7 @@ namespace DiyetOtomasyon.PL
                 txtPosiyonTipi.Text = "";
                 dgvPorsiyon.DataSource = portionManager.GetAll();
                 selectedPortion = null;
+
             }
         }
 
@@ -310,6 +332,95 @@ namespace DiyetOtomasyon.PL
                 dgvOgun.DataSource = timeManager.GetAll();
                 selecetedMealTime = null;
             }
+        }
+
+        private void btnEkleCat_Click(object sender, EventArgs e)
+        {
+            foreach (var item in categoryManager.GetAll())
+            {
+                if (item.CategoryName == txtKatAdi.Text)
+                {
+                    MessageBox.Show("ZATEN BÖYLE BİR KATEGORİ VAR", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+            if (txtKatAdi.Text == "")
+            {
+                MessageBox.Show("LÜTFEN BOŞ ALANLARI DOLDURUNUZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            else
+            {
+                CategoryModel categoryModel = new CategoryModel();
+
+                categoryModel.CategoryName = txtKatAdi.Text;
+
+                categoryManager.Add(categoryModel);
+                MessageBox.Show("Kategori Eklenmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtKatAdi.Text = "";
+                RefreshKategori();
+                dgvKategoriList.DataSource = categoryManager.GetAll();
+                selectedCategory = null;
+            }
+        }
+
+        private void btnSilKat_Click(object sender, EventArgs e)
+        {
+            if (selectedCategory == null)
+            {
+                MessageBox.Show("SİLMEK İÇİN BİR KATEGORI SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (txtKatAdi.Text == "")
+            {
+                MessageBox.Show("KATEGORI  BOŞ OLAMAZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            else
+            {
+                categoryManager.Remove(selectedCategory);
+                MessageBox.Show("Kategori Silinmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtKatAdi.Text = "";
+                dgvKategoriList.DataSource = categoryManager.GetAll();
+                selectedCategory = null;
+                cmbKategori.DataSource = categoryManager.GetAll();
+            }
+        }
+
+        private void btnGunCat_Click(object sender, EventArgs e)
+        {
+            if (selectedCategory == null)
+            {
+                MessageBox.Show("GUNCELLEMEK İÇİN BİR KATEGORI SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (txtKatAdi.Text == "")
+            {
+                MessageBox.Show("KATEGORI ADI  BOŞ OLAMAZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            else
+            {
+
+                selectedCategory.CategoryName = txtKatAdi.Text;
+
+                categoryManager.Update(selectedCategory);
+                MessageBox.Show("Kategori Güncellenmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtOgunAdi.Text = "";
+                dgvKategoriList.DataSource = categoryManager.GetAll();
+                selectedCategory = null;
+                cmbKategori.DataSource = categoryManager.GetAll();
+            }
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form5_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _mainForm.Show();
         }
     }
 }

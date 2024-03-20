@@ -1,4 +1,5 @@
-﻿using DiyetOtomasyon.DAL.Enums;
+﻿using DiyetOtomasyon.DAL.Entities;
+using DiyetOtomasyon.DAL.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,9 @@ namespace DiyetOtomasyon.BL.Models
         public string Description { get; set; }
         public short Calorie { get; set; }
         public Status Status { get; set; }
+        //public  CategoryModel Category { get; set; }
+        public  int CategoryId { get; set; }
+        //public List<PersonMealModel> PersonMeals { get; set; }
 
     }
 }
