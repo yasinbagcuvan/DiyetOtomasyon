@@ -18,8 +18,7 @@ namespace DiyetOtomasyon.BL.MappingProfile
 
             CreateMap<PortionModel, Portion>().
             ForMember(a => a.Id, b => b.MapFrom(src => src.Id)).
-            ForMember(a => a.Size, b => b.MapFrom(src => src.Size)).
-            //ForMember(a => a.Type, b => b.MapFrom(src => src.Type)).
+            ForMember(a => a.Size, b => b.MapFrom(src => src.Size)).      
             //ForMember(a => a.PersonMeals, b => b.MapFrom(src => src.PersonMeals)).
             ReverseMap();
 

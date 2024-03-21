@@ -14,7 +14,7 @@ namespace DiyetOtomasyon.DAL.Entities
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        //public ICollection<Meal> Meals { get; set; }
+        
         public virtual List<PersonMeal> PersonMeals { get; set; }
 
 

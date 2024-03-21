@@ -14,10 +14,15 @@ namespace DiyetOtomasyon.BL.Models
         public string MealName { get; set; }
         public string Description { get; set; }
         public short Calorie { get; set; }
-        public Status Status { get; set; }
+        //public Status Status { get; set; }
         //public  CategoryModel Category { get; set; }
+        
         public  int CategoryId { get; set; }
         //public List<PersonMealModel> PersonMeals { get; set; }
+        public override string ToString()
+        {
+            return MealName;
+        }
 
     }
 }

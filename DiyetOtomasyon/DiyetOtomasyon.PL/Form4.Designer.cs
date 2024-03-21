@@ -46,12 +46,26 @@
             label2 = new Label();
             btnDayList = new Button();
             tabPage3 = new TabPage();
+            lblYemekToplam = new Label();
+            label10 = new Label();
+            cmbYemekler = new ComboBox();
+            btnYemekSorgu = new Button();
+            lblToplamOgun = new Label();
+            label8 = new Label();
+            cmbOgunler = new ComboBox();
             label5 = new Label();
             btnWeekList = new Button();
             dgvWeekList = new DataGridView();
             tabPage4 = new TabPage();
+            lblAylıkYemek = new Label();
+            label13 = new Label();
+            cmbAylıkYemek = new ComboBox();
+            btnAylıkYemek = new Button();
+            lblAylıkOgun = new Label();
+            label11 = new Label();
+            cmbAylıkOgun = new ComboBox();
+            btnAylıkOgun = new Button();
             label6 = new Label();
-            btnMountList = new Button();
             dgvMountList = new DataGridView();
             tabPage5 = new TabPage();
             label7 = new Label();
@@ -79,9 +93,7 @@
             dgvYemekListesi.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvYemekListesi.Size = new Size(738, 285);
             dgvYemekListesi.TabIndex = 0;
-            dgvYemekListesi.CellContentClick += dataGridView1_CellContentClick;
             dgvYemekListesi.CellMouseClick += dgvYemekListesi_CellMouseClick;
-            dgvYemekListesi.MouseClick += dgvYemekListesi_MouseClick;
             // 
             // lblMealDesc
             // 
@@ -185,7 +197,6 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Oğün İşleme";
             tabPage1.UseVisualStyleBackColor = true;
-            tabPage1.Click += tabPage1_Click;
             // 
             // label4
             // 
@@ -228,7 +239,6 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Günlük Yemek Sorgulama";
             tabPage2.UseVisualStyleBackColor = true;
-            tabPage2.Click += tabPage2_Click;
             // 
             // lblToplamKalori
             // 
@@ -265,6 +275,13 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(lblYemekToplam);
+            tabPage3.Controls.Add(label10);
+            tabPage3.Controls.Add(cmbYemekler);
+            tabPage3.Controls.Add(btnYemekSorgu);
+            tabPage3.Controls.Add(lblToplamOgun);
+            tabPage3.Controls.Add(label8);
+            tabPage3.Controls.Add(cmbOgunler);
             tabPage3.Controls.Add(label5);
             tabPage3.Controls.Add(btnWeekList);
             tabPage3.Controls.Add(dgvWeekList);
@@ -275,6 +292,73 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Haftalık Kıyas Raporu";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // lblYemekToplam
+            // 
+            lblYemekToplam.AutoSize = true;
+            lblYemekToplam.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            lblYemekToplam.Location = new Point(479, 427);
+            lblYemekToplam.Name = "lblYemekToplam";
+            lblYemekToplam.Size = new Size(175, 20);
+            lblYemekToplam.TabIndex = 21;
+            lblYemekToplam.Text = "Toplam Yemek Sayınız : ";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label10.Location = new Point(479, 378);
+            label10.Name = "label10";
+            label10.Size = new Size(106, 20);
+            label10.TabIndex = 20;
+            label10.Text = "Yemek Seçiniz";
+            // 
+            // cmbYemekler
+            // 
+            cmbYemekler.FormattingEnabled = true;
+            cmbYemekler.Location = new Point(603, 375);
+            cmbYemekler.Name = "cmbYemekler";
+            cmbYemekler.Size = new Size(121, 23);
+            cmbYemekler.TabIndex = 19;
+            // 
+            // btnYemekSorgu
+            // 
+            btnYemekSorgu.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 162);
+            btnYemekSorgu.Location = new Point(479, 466);
+            btnYemekSorgu.Name = "btnYemekSorgu";
+            btnYemekSorgu.Size = new Size(267, 38);
+            btnYemekSorgu.TabIndex = 18;
+            btnYemekSorgu.Text = "HAFTALIK YEMEK ÖĞREN";
+            btnYemekSorgu.UseVisualStyleBackColor = true;
+            btnYemekSorgu.Click += btnYemekSorgu_Click;
+            // 
+            // lblToplamOgun
+            // 
+            lblToplamOgun.AutoSize = true;
+            lblToplamOgun.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            lblToplamOgun.Location = new Point(6, 427);
+            lblToplamOgun.Name = "lblToplamOgun";
+            lblToplamOgun.Size = new Size(167, 20);
+            lblToplamOgun.TabIndex = 17;
+            lblToplamOgun.Text = "Toplam Oğün Sayınız : ";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label8.Location = new Point(6, 378);
+            label8.Name = "label8";
+            label8.Size = new Size(98, 20);
+            label8.TabIndex = 16;
+            label8.Text = "Oğün Seçiniz";
+            // 
+            // cmbOgunler
+            // 
+            cmbOgunler.FormattingEnabled = true;
+            cmbOgunler.Location = new Point(130, 375);
+            cmbOgunler.Name = "cmbOgunler";
+            cmbOgunler.Size = new Size(121, 23);
+            cmbOgunler.TabIndex = 15;
             // 
             // label5
             // 
@@ -290,28 +374,35 @@
             // 
             // btnWeekList
             // 
-            btnWeekList.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            btnWeekList.Location = new Point(197, 354);
+            btnWeekList.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 162);
+            btnWeekList.Location = new Point(6, 466);
             btnWeekList.Name = "btnWeekList";
-            btnWeekList.Size = new Size(361, 63);
+            btnWeekList.Size = new Size(267, 38);
             btnWeekList.TabIndex = 1;
-            btnWeekList.Text = "HAFTALIK LISTELE";
+            btnWeekList.Text = "HAFTALIK ÖĞÜN ÖĞREN";
             btnWeekList.UseVisualStyleBackColor = true;
             btnWeekList.Click += btnWeekList_Click;
             // 
             // dgvWeekList
             // 
             dgvWeekList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvWeekList.Location = new Point(130, 93);
+            dgvWeekList.Location = new Point(82, 89);
             dgvWeekList.Name = "dgvWeekList";
             dgvWeekList.ReadOnly = true;
-            dgvWeekList.Size = new Size(482, 181);
+            dgvWeekList.Size = new Size(581, 181);
             dgvWeekList.TabIndex = 0;
             // 
             // tabPage4
             // 
+            tabPage4.Controls.Add(lblAylıkYemek);
+            tabPage4.Controls.Add(label13);
+            tabPage4.Controls.Add(cmbAylıkYemek);
+            tabPage4.Controls.Add(btnAylıkYemek);
+            tabPage4.Controls.Add(lblAylıkOgun);
+            tabPage4.Controls.Add(label11);
+            tabPage4.Controls.Add(cmbAylıkOgun);
+            tabPage4.Controls.Add(btnAylıkOgun);
             tabPage4.Controls.Add(label6);
-            tabPage4.Controls.Add(btnMountList);
             tabPage4.Controls.Add(dgvMountList);
             tabPage4.Location = new Point(4, 24);
             tabPage4.Name = "tabPage4";
@@ -321,36 +412,103 @@
             tabPage4.Text = "Aylık Kıyas Raporu";
             tabPage4.UseVisualStyleBackColor = true;
             // 
+            // lblAylıkYemek
+            // 
+            lblAylıkYemek.AutoSize = true;
+            lblAylıkYemek.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            lblAylıkYemek.Location = new Point(472, 419);
+            lblAylıkYemek.Name = "lblAylıkYemek";
+            lblAylıkYemek.Size = new Size(175, 20);
+            lblAylıkYemek.TabIndex = 25;
+            lblAylıkYemek.Text = "Toplam Yemek Sayınız : ";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label13.Location = new Point(472, 370);
+            label13.Name = "label13";
+            label13.Size = new Size(106, 20);
+            label13.TabIndex = 24;
+            label13.Text = "Yemek Seçiniz";
+            // 
+            // cmbAylıkYemek
+            // 
+            cmbAylıkYemek.FormattingEnabled = true;
+            cmbAylıkYemek.Location = new Point(596, 367);
+            cmbAylıkYemek.Name = "cmbAylıkYemek";
+            cmbAylıkYemek.Size = new Size(121, 23);
+            cmbAylıkYemek.TabIndex = 23;
+            // 
+            // btnAylıkYemek
+            // 
+            btnAylıkYemek.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 162);
+            btnAylıkYemek.Location = new Point(472, 458);
+            btnAylıkYemek.Name = "btnAylıkYemek";
+            btnAylıkYemek.Size = new Size(267, 38);
+            btnAylıkYemek.TabIndex = 22;
+            btnAylıkYemek.Text = "AYLIK ÖĞÜN ÖĞREN";
+            btnAylıkYemek.UseVisualStyleBackColor = true;
+            btnAylıkYemek.Click += btnAylıkYemek_Click;
+            // 
+            // lblAylıkOgun
+            // 
+            lblAylıkOgun.AutoSize = true;
+            lblAylıkOgun.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            lblAylıkOgun.Location = new Point(6, 419);
+            lblAylıkOgun.Name = "lblAylıkOgun";
+            lblAylıkOgun.Size = new Size(167, 20);
+            lblAylıkOgun.TabIndex = 21;
+            lblAylıkOgun.Text = "Toplam Oğün Sayınız : ";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label11.Location = new Point(6, 370);
+            label11.Name = "label11";
+            label11.Size = new Size(98, 20);
+            label11.TabIndex = 20;
+            label11.Text = "Oğün Seçiniz";
+            // 
+            // cmbAylıkOgun
+            // 
+            cmbAylıkOgun.FormattingEnabled = true;
+            cmbAylıkOgun.Location = new Point(130, 367);
+            cmbAylıkOgun.Name = "cmbAylıkOgun";
+            cmbAylıkOgun.Size = new Size(121, 23);
+            cmbAylıkOgun.TabIndex = 19;
+            // 
+            // btnAylıkOgun
+            // 
+            btnAylıkOgun.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 162);
+            btnAylıkOgun.Location = new Point(6, 458);
+            btnAylıkOgun.Name = "btnAylıkOgun";
+            btnAylıkOgun.Size = new Size(267, 38);
+            btnAylıkOgun.TabIndex = 18;
+            btnAylıkOgun.Text = "AYLIK ÖĞÜN ÖĞREN";
+            btnAylıkOgun.UseVisualStyleBackColor = true;
+            btnAylıkOgun.Click += btnAylıkOgun_Click;
+            // 
             // label6
             // 
             label6.AutoSize = true;
             label6.BackColor = SystemColors.GradientActiveCaption;
             label6.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             label6.ForeColor = SystemColors.Highlight;
-            label6.Location = new Point(261, 46);
+            label6.Location = new Point(257, 30);
             label6.Name = "label6";
             label6.Size = new Size(221, 24);
             label6.TabIndex = 14;
             label6.Text = "AYLIK KIYAS RAPORU";
             // 
-            // btnMountList
-            // 
-            btnMountList.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            btnMountList.Location = new Point(196, 356);
-            btnMountList.Name = "btnMountList";
-            btnMountList.Size = new Size(345, 57);
-            btnMountList.TabIndex = 1;
-            btnMountList.Text = "AYLIK LISTE";
-            btnMountList.UseVisualStyleBackColor = true;
-            btnMountList.Click += btnMountList_Click;
-            // 
             // dgvMountList
             // 
             dgvMountList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvMountList.Location = new Point(123, 99);
+            dgvMountList.Location = new Point(103, 91);
             dgvMountList.Name = "dgvMountList";
             dgvMountList.ReadOnly = true;
-            dgvMountList.Size = new Size(464, 168);
+            dgvMountList.Size = new Size(544, 168);
             dgvMountList.TabIndex = 0;
             // 
             // tabPage5
@@ -382,7 +540,7 @@
             // btnYemekCesit
             // 
             btnYemekCesit.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            btnYemekCesit.Location = new Point(223, 350);
+            btnYemekCesit.Location = new Point(223, 373);
             btnYemekCesit.Name = "btnYemekCesit";
             btnYemekCesit.Size = new Size(287, 82);
             btnYemekCesit.TabIndex = 1;
@@ -393,10 +551,10 @@
             // dgvYemekKiyas
             // 
             dgvYemekKiyas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvYemekKiyas.Location = new Point(163, 120);
+            dgvYemekKiyas.Location = new Point(59, 107);
             dgvYemekKiyas.Name = "dgvYemekKiyas";
             dgvYemekKiyas.ReadOnly = true;
-            dgvYemekKiyas.Size = new Size(404, 169);
+            dgvYemekKiyas.Size = new Size(650, 212);
             dgvYemekKiyas.TabIndex = 0;
             // 
             // Form4
@@ -449,7 +607,6 @@
         private Button btnWeekList;
         private DataGridView dgvWeekList;
         private TabPage tabPage4;
-        private Button btnMountList;
         private DataGridView dgvMountList;
         private TabPage tabPage5;
         private Button btnYemekCesit;
@@ -460,5 +617,20 @@
         private Label label6;
         private Label label7;
         private Label lblToplamKalori;
+        private ComboBox cmbOgunler;
+        private Label lblToplamOgun;
+        private Label label8;
+        private Label lblYemekToplam;
+        private Label label10;
+        private ComboBox cmbYemekler;
+        private Button btnYemekSorgu;
+        private Label lblAylıkYemek;
+        private Label label13;
+        private ComboBox cmbAylıkYemek;
+        private Button btnAylıkYemek;
+        private Label lblAylıkOgun;
+        private Label label11;
+        private ComboBox cmbAylıkOgun;
+        private Button btnAylıkOgun;
     }
 }

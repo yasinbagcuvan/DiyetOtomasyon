@@ -268,9 +268,9 @@ namespace DiyetOtomasyon.PL
         {
             if (!timeManager.GetAll().Where(m => m.Name.ToLower() == txtOgunAdi.Text.ToLower()).Any())
             {
-                if (selecetedMealTime == null)
+                if (txtOgunAdi.Text == "")
                 {
-                    MessageBox.Show("LÜTFEN GUNCELLEMEK İÇİN BİR OGUN SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("OGUN ADI BOŞ OLAMAZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtOgunAdi.Text = "";
                 }
 

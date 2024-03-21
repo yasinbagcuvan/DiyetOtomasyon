@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using AutoMapper.EquivalencyExpression;
 using AutoMapper.Extensions.ExpressionMapping;
+using AutoMapper.Internal.Mappers;
 using DiyetOtomasyon.DAL.Repository.Abstract;
 using System;
 using System.Collections.Generic;
@@ -18,6 +20,7 @@ namespace DiyetOtomasyon.BL.Manager.Abstract
         where TEntity : class
         where TMapperProfile : Profile, new()
     {
+        
         protected IMapper _mapper;
         protected IRepository<TEntity> _repository;
         protected MapperConfiguration _config;
@@ -25,12 +28,19 @@ namespace DiyetOtomasyon.BL.Manager.Abstract
 
         public Manager()
         {
+            //Mapper.Initialize(cfg =>
+            //{
+            //    cfg.AddCollectionMappers();
+            //    // Configuration code
+            //});
 
             //constructor'da mapper'ın configurasyonunu yapıyoruz.
             //nereden nereye eşleştireceğini belirliyoruz.
             //TModel dan TEntity'ye ve TEntity'den TModel'a eşleme yap diyoruz.
             _config = new MapperConfiguration(cfg =>
             {
+                
+                cfg.AddCollectionMappers();
                 cfg.AddExpressionMapping().CreateMap<TModel, TEntity>().ReverseMap();
                 cfg.AddProfile<TMapperProfile>();
             });

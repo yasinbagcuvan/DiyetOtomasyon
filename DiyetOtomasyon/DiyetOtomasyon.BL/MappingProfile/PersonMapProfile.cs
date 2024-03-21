@@ -24,7 +24,7 @@ namespace DiyetOtomasyon.BL.MappingProfile
                 ForMember(a => a.FirstName, b => b.MapFrom(src => src.FirstName)).
                 ForMember(a => a.LastName, b => b.MapFrom(src => src.LastName)).
                 ForMember(a => a.Password, b => b.MapFrom(src => src.Password)).
-                //ForMember(a => a.PersonMeals, b => b.MapFrom(src => src.PersonMeals)).
+                ForMember(a => a.PersonMeals, b => b.MapFrom(src => src.PersonMeals)).
             ReverseMap();
 
         }
