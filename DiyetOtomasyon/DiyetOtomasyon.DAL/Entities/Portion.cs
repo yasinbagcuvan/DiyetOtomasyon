@@ -9,12 +9,12 @@ namespace DiyetOtomasyon.DAL.Entities
 {
     public class Portion : Entity
     {
-        public string Type { get; set; }
+        //public string Type { get; set; }
         public int Size  { get; set; }
         public virtual List<PersonMeal> PersonMeals { get; set; }
         public override string ToString()
         {
-            return Type;
+            return Size.ToString();
         }
     }
     

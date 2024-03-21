@@ -11,13 +11,13 @@ namespace DiyetOtomasyon.BL.Models
     public class PortionModel
     {
         public int Id { get; set; }
-        public string Type { get; set; }
+        //public string Type { get; set; }
         public int Size { get; set; }
         //public List<PersonMealModel> PersonMeals { get; set; }
 
         public override string ToString()
         {
-            return Type;
+            return Size.ToString();
         }
     }
 }

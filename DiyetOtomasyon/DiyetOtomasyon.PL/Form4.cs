@@ -20,11 +20,13 @@ namespace DiyetOtomasyon.PL
         DiyetDbContext db = new DiyetDbContext();
         MealModel selectedMeal;
         PersonMealManager manager = new PersonMealManager();
+        MealManager mealManager = new MealManager();
+        MealTimeManager mealTime = new MealTimeManager();
+        PortionManager portionManager = new PortionManager();
         PersonMealModel PersonMealModel = new PersonMealModel();
-        PortionModel Portion = new PortionModel();
-        PortionManager PortionManager = new PortionManager();
-        Form _refForm;
+        PortionModel Portion;
         Form _mainForm;
+        Form _refForm;
 
         public Form4()
         {
@@ -44,30 +46,25 @@ namespace DiyetOtomasyon.PL
 
         private void Form4_Load(object sender, EventArgs e)
         {
-            
-            MealManager manager = new MealManager();
-            MealTimeManager mealTime = new MealTimeManager();
-            PortionManager portionManager = new PortionManager();
-            dgvYemekListesi.DataSource = manager.GetAll();
+
+        
+            dgvYemekListesi.DataSource = mealManager.GetAll();
             cmbOgun.DataSource = mealTime.GetAll();
             MessageBox.Show("UserId : " + Program.LoginUserId);
             MessageBox.Show("UserName : " + Program.Person.FirstName);
             cmbTip.DataSource = portionManager.GetAll();
-            
+
 
         }
 
         private void dgvYemekListesi_MouseClick(object sender, MouseEventArgs e)
         {
-            selectedMeal = (MealModel)dgvYemekListesi.SelectedRows[0].DataBoundItem;
-            lblMealName.Text = "Yemek : " + " " + selectedMeal.MealName;
-            lblCalorie.Text = "Kalori : " + " " + selectedMeal.Calorie.ToString();
-            lblMealDesc.Text = "Açıklama : " + " " + selectedMeal.Description;
+
         }
 
         private void btnEkleYemek_Click(object sender, EventArgs e)
         {
-            if (txtAdet.Text == "" || cmbOgun.SelectedText == null || cmbTip.SelectedText == null || selectedMeal == null)
+            if (/*txtAdet.Text == "" ||*/ cmbOgun.SelectedText == null || cmbTip.SelectedText == null || selectedMeal == null)
             {
                 MessageBox.Show("Lütfen boş alan bırakmayınız", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -78,13 +75,15 @@ namespace DiyetOtomasyon.PL
                 PersonMealModel.MealTimeId = mealTime.Id;
                 PersonMealModel.PersonId = Program.LoginUserId;
 
-                Portion.Size = int.Parse(txtAdet.Text);
-                Portion.Type = cmbTip.SelectedItem.ToString();
-                Portion = PortionManager.Add(Portion);
+                //Portion.Size = int.Parse(txtAdet.Text);
+                Portion = (PortionModel)cmbTip.SelectedItem;
+                //Portion = portionManager.Add(Portion);
 
                 PersonMealModel.PortionId = Portion.Id;
                 manager.Add(PersonMealModel);
-                MessageBox.Show($"{selectedMeal.MealName} {mealTime.Name} öğününe {Portion.Size} {Portion.Type} eklenmiştir  ", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dgvYemekListesi.DataSource = mealManager.GetAll();
+                MessageBox.Show($"{selectedMeal.MealName} {mealTime.Name} öğününe {Portion.Size} porsiyon eklenmiştir  ", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
 
         }
@@ -92,10 +91,10 @@ namespace DiyetOtomasyon.PL
         private void txtAdet_KeyPress(object sender, KeyPressEventArgs e)
         {
 
-            if (e.Handled = !char.IsDigit(e.KeyChar))
-            {
-                txtAdet.Text = "";
-            }
+            //if (e.Handled = !char.IsDigit(e.KeyChar))
+            //{
+            //    txtAdet.Text = "";
+            //}
         }
 
         private void tabPage2_Click(object sender, EventArgs e)
@@ -121,8 +120,11 @@ namespace DiyetOtomasyon.PL
                             join pt in portionManager.GetAll() on pm.PortionId equals pt.Id
                             where p.Id == Program.LoginUserId
                             where (DateTime.Now.Day) - (pm.CreatedDate.Day) <= 1
-                            select new { KisiAdi = p.FirstName + " " + p.LastName, YemekAdi = m.MealName, Kalorisi = m.Calorie, OgunAdi = mt.Name, Porsiyon = pt.Size, PorsiyonTipi = pt.Type, ToplamKalori = (int)(m.Calorie * pt.Size), Tarih = pm.CreatedDate });
+                            select new { KisiAdi = p.FirstName + " " + p.LastName, YemekAdi = m.MealName, Kalorisi = m.Calorie, OgunAdi = mt.Name, Porsiyon = pt.Size, ToplamKalori = (int)(m.Calorie * pt.Size), Tarih = pm.CreatedDate }).ToList();
+            
 
+            int calSum = dayList.Sum(x => x.ToplamKalori);
+            lblToplamKalori.Text = "Toplam Kalori : "+calSum.ToString();
             dgvDayList.DataSource = dayList.ToList();
         }
 
@@ -133,6 +135,7 @@ namespace DiyetOtomasyon.PL
             MealManager mealManager = new MealManager();
             MealTimeManager mealTimeManager = new MealTimeManager();
             PortionManager portionManager = new PortionManager();
+            CategoryManager categoryManager = new CategoryManager();
 
 
 
@@ -142,6 +145,7 @@ namespace DiyetOtomasyon.PL
                             join m in mealManager.GetAll() on pm.MealId equals m.Id
                             join mt in mealTimeManager.GetAll() on pm.MealTimeId equals mt.Id
                             join pt in portionManager.GetAll() on pm.PortionId equals pt.Id
+                            join c in categoryManager.GetAll() on m.CategoryId equals c.Id
                             //where p.Id == Program.LoginUserId
                             where (DateTime.Now.Day) - (pm.CreatedDate.Day) <= 7
                             group pm by new
@@ -149,10 +153,10 @@ namespace DiyetOtomasyon.PL
                                 p.FirstName,
                                 p.LastName,
                                 mt.Name,
-                                m.MealName
+                                c.CategoryName
                             }
                             into gcs
-                            select new { KisiAdi = gcs.Key.FirstName, KisiSoyadi = gcs.Key.LastName, OgunAdi = gcs.Key.Name, YemekAdi = gcs.Key.MealName }
+                            select new { KisiAdi = gcs.Key.FirstName, KisiSoyadi = gcs.Key.LastName, OgunAdi = gcs.Key.Name, KategoriAdi = gcs.Key.CategoryName }
                             );
 
             dgvWeekList.DataSource = weekList.ToList();
@@ -165,6 +169,7 @@ namespace DiyetOtomasyon.PL
             MealManager mealManager = new MealManager();
             MealTimeManager mealTimeManager = new MealTimeManager();
             PortionManager portionManager = new PortionManager();
+            CategoryManager categoryManager = new CategoryManager();
 
 
 
@@ -174,6 +179,7 @@ namespace DiyetOtomasyon.PL
                             join m in mealManager.GetAll() on pm.MealId equals m.Id
                             join mt in mealTimeManager.GetAll() on pm.MealTimeId equals mt.Id
                             join pt in portionManager.GetAll() on pm.PortionId equals pt.Id
+                            join c in categoryManager.GetAll() on m.CategoryId equals c.Id
                             //where p.Id == Program.LoginUserId
                             where (DateTime.Now.Day) - (pm.CreatedDate.Day) <= 30
                             group pm by new
@@ -181,10 +187,10 @@ namespace DiyetOtomasyon.PL
                                 p.FirstName,
                                 p.LastName,
                                 mt.Name,
-                                m.MealName
+                                c.CategoryName
                             }
                             into gcs
-                            select new { KisiAdi = gcs.Key.FirstName, KisiSoyadi = gcs.Key.LastName, OgunAdi = gcs.Key.Name, YemekAdi = gcs.Key.MealName }
+                            select new { KisiAdi = gcs.Key.FirstName, KisiSoyadi = gcs.Key.LastName, OgunAdi = gcs.Key.Name, KategoriAdi = gcs.Key.CategoryName }
                             );
 
             dgvMountList.DataSource = mounthList.ToList();
@@ -229,6 +235,14 @@ namespace DiyetOtomasyon.PL
         private void tabPage1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dgvYemekListesi_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            selectedMeal = (MealModel)dgvYemekListesi.SelectedRows[0].DataBoundItem;
+            lblMealName.Text = "Yemek : " + " " + selectedMeal.MealName;
+            lblCalorie.Text = "Kalori : " + " " + selectedMeal.Calorie.ToString();
+            lblMealDesc.Text = "Açıklama : " + " " + selectedMeal.Description;
         }
     }
 }

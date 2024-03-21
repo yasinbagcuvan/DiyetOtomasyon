@@ -33,7 +33,6 @@
             txtYemekAdi = new TextBox();
             txtYemekCalorie = new TextBox();
             txtYemekAciklama = new TextBox();
-            txtPosiyonTipi = new TextBox();
             txtPorsiyonAdet = new TextBox();
             btnPorsiyonEkle = new Button();
             btnOgunEkle = new Button();
@@ -70,9 +69,11 @@
             // 
             // dgvAdminYemek
             // 
+            dgvAdminYemek.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
             dgvAdminYemek.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvAdminYemek.Location = new Point(6, 6);
             dgvAdminYemek.Name = "dgvAdminYemek";
+            dgvAdminYemek.ReadOnly = true;
             dgvAdminYemek.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvAdminYemek.Size = new Size(777, 254);
             dgvAdminYemek.TabIndex = 0;
@@ -112,14 +113,6 @@
             txtYemekAciklama.PlaceholderText = "Yemek Aciklama";
             txtYemekAciklama.Size = new Size(100, 23);
             txtYemekAciklama.TabIndex = 4;
-            // 
-            // txtPosiyonTipi
-            // 
-            txtPosiyonTipi.Location = new Point(203, 328);
-            txtPosiyonTipi.Name = "txtPosiyonTipi";
-            txtPosiyonTipi.PlaceholderText = "Porsiyon Tipi";
-            txtPosiyonTipi.Size = new Size(100, 23);
-            txtPosiyonTipi.TabIndex = 5;
             // 
             // txtPorsiyonAdet
             // 
@@ -261,7 +254,6 @@
             // tabPage2
             // 
             tabPage2.Controls.Add(dgvPorsiyon);
-            tabPage2.Controls.Add(txtPosiyonTipi);
             tabPage2.Controls.Add(txtPorsiyonAdet);
             tabPage2.Controls.Add(btnPorsiyonEkle);
             tabPage2.Controls.Add(btnPorsiyonGuncelle);
@@ -279,9 +271,11 @@
             dgvPorsiyon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvPorsiyon.Location = new Point(19, 6);
             dgvPorsiyon.Name = "dgvPorsiyon";
+            dgvPorsiyon.ReadOnly = true;
             dgvPorsiyon.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPorsiyon.Size = new Size(757, 221);
             dgvPorsiyon.TabIndex = 14;
+            dgvPorsiyon.CellMouseClick += dgvPorsiyon_CellMouseClick;
             // 
             // tabPage3
             // 
@@ -303,8 +297,11 @@
             dgvOgun.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvOgun.Location = new Point(24, 6);
             dgvOgun.Name = "dgvOgun";
+            dgvOgun.ReadOnly = true;
+            dgvOgun.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvOgun.Size = new Size(721, 216);
             dgvOgun.TabIndex = 16;
+            dgvOgun.CellMouseClick += dgvOgun_CellMouseClick;
             // 
             // tabPage4
             // 
@@ -326,8 +323,11 @@
             dgvKategoriList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvKategoriList.Location = new Point(34, 13);
             dgvKategoriList.Name = "dgvKategoriList";
+            dgvKategoriList.ReadOnly = true;
+            dgvKategoriList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvKategoriList.Size = new Size(721, 216);
             dgvKategoriList.TabIndex = 21;
+            dgvKategoriList.CellMouseClick += dgvKategoriList_CellMouseClick;
             // 
             // txtKatAdi
             // 
@@ -395,13 +395,10 @@
         }
 
         #endregion
-
-        private DataGridView dgvAdminYemek;
         private Button btnYemekEkle;
         private TextBox txtYemekAdi;
         private TextBox txtYemekCalorie;
         private TextBox txtYemekAciklama;
-        private TextBox txtPosiyonTipi;
         private TextBox txtPorsiyonAdet;
         private Button btnPorsiyonEkle;
         private Button btnOgunEkle;
@@ -425,5 +422,6 @@
         private Button btnEkleCat;
         private Button btnSilKat;
         private ComboBox cmbKategori;
+        private DataGridView dgvAdminYemek;
     }
 }

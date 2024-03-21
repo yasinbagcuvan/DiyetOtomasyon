@@ -10,7 +10,7 @@ namespace DiyetOtomasyon.BL.Models
     public class MealTimeModel
     {
         public int Id { get; set; }
-       public string Name { get; set; }
+        public string Name { get; set; }
         public DateTime CreatedTime { get; set; }
         //public List<PersonMealModel> PersonMeals { get; set; }
         public override string ToString()
