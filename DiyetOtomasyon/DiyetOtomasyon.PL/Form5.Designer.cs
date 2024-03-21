@@ -56,6 +56,14 @@
             btnGunCat = new Button();
             btnEkleCat = new Button();
             btnSilKat = new Button();
+            tabPage5 = new TabPage();
+            txtPass = new TextBox();
+            txtMail = new TextBox();
+            txtSoyadi = new TextBox();
+            txtAdi = new TextBox();
+            btnKullanıcıGunc = new Button();
+            btnPersonSil = new Button();
+            dgvPersons = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dgvAdminYemek).BeginInit();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -65,6 +73,8 @@
             ((System.ComponentModel.ISupportInitialize)dgvOgun).BeginInit();
             tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvKategoriList).BeginInit();
+            tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvPersons).BeginInit();
             SuspendLayout();
             // 
             // dgvAdminYemek
@@ -121,8 +131,6 @@
             txtPorsiyonAdet.PlaceholderText = "Porsiyon Adeti";
             txtPorsiyonAdet.Size = new Size(100, 23);
             txtPorsiyonAdet.TabIndex = 6;
-            txtPorsiyonAdet.TextChanged += txtPorsiyonAdet_TextChanged;
-            txtPorsiyonAdet.KeyPress += txtPorsiyonAdet_KeyPress;
             // 
             // btnPorsiyonEkle
             // 
@@ -218,6 +226,7 @@
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
             tabControl1.Controls.Add(tabPage4);
+            tabControl1.Controls.Add(tabPage5);
             tabControl1.Location = new Point(1, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -241,7 +250,6 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Yemek Ekle";
             tabPage1.UseVisualStyleBackColor = true;
-            tabPage1.Click += tabPage1_Click;
             // 
             // cmbKategori
             // 
@@ -367,6 +375,86 @@
             btnSilKat.UseVisualStyleBackColor = true;
             btnSilKat.Click += btnSilKat_Click;
             // 
+            // tabPage5
+            // 
+            tabPage5.Controls.Add(txtPass);
+            tabPage5.Controls.Add(txtMail);
+            tabPage5.Controls.Add(txtSoyadi);
+            tabPage5.Controls.Add(txtAdi);
+            tabPage5.Controls.Add(btnKullanıcıGunc);
+            tabPage5.Controls.Add(btnPersonSil);
+            tabPage5.Controls.Add(dgvPersons);
+            tabPage5.Location = new Point(4, 24);
+            tabPage5.Name = "tabPage5";
+            tabPage5.Padding = new Padding(3);
+            tabPage5.Size = new Size(789, 424);
+            tabPage5.TabIndex = 4;
+            tabPage5.Text = "tabPage5";
+            tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // txtPass
+            // 
+            txtPass.Location = new Point(217, 267);
+            txtPass.Name = "txtPass";
+            txtPass.PlaceholderText = "Şifre";
+            txtPass.Size = new Size(100, 23);
+            txtPass.TabIndex = 6;
+            // 
+            // txtMail
+            // 
+            txtMail.Location = new Point(217, 213);
+            txtMail.Name = "txtMail";
+            txtMail.PlaceholderText = "Email";
+            txtMail.Size = new Size(100, 23);
+            txtMail.TabIndex = 5;
+            // 
+            // txtSoyadi
+            // 
+            txtSoyadi.Location = new Point(66, 267);
+            txtSoyadi.Name = "txtSoyadi";
+            txtSoyadi.PlaceholderText = "Soyadi";
+            txtSoyadi.Size = new Size(100, 23);
+            txtSoyadi.TabIndex = 4;
+            // 
+            // txtAdi
+            // 
+            txtAdi.Location = new Point(66, 213);
+            txtAdi.Name = "txtAdi";
+            txtAdi.PlaceholderText = "Adi";
+            txtAdi.Size = new Size(100, 23);
+            txtAdi.TabIndex = 3;
+            // 
+            // btnKullanıcıGunc
+            // 
+            btnKullanıcıGunc.Location = new Point(148, 370);
+            btnKullanıcıGunc.Name = "btnKullanıcıGunc";
+            btnKullanıcıGunc.Size = new Size(75, 23);
+            btnKullanıcıGunc.TabIndex = 2;
+            btnKullanıcıGunc.Text = "GÜNCELLE";
+            btnKullanıcıGunc.UseVisualStyleBackColor = true;
+            btnKullanıcıGunc.Click += btnKullanıcıGunc_Click;
+            // 
+            // btnPersonSil
+            // 
+            btnPersonSil.Location = new Point(41, 370);
+            btnPersonSil.Name = "btnPersonSil";
+            btnPersonSil.Size = new Size(75, 23);
+            btnPersonSil.TabIndex = 1;
+            btnPersonSil.Text = "SİL";
+            btnPersonSil.UseVisualStyleBackColor = true;
+            btnPersonSil.Click += btnPersonSil_Click;
+            // 
+            // dgvPersons
+            // 
+            dgvPersons.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvPersons.Location = new Point(7, 6);
+            dgvPersons.Name = "dgvPersons";
+            dgvPersons.ReadOnly = true;
+            dgvPersons.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPersons.Size = new Size(776, 167);
+            dgvPersons.TabIndex = 0;
+            dgvPersons.CellMouseClick += dgvPersons_CellMouseClick;
+            // 
             // Form5
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -391,6 +479,9 @@
             tabPage4.ResumeLayout(false);
             tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvKategoriList).EndInit();
+            tabPage5.ResumeLayout(false);
+            tabPage5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvPersons).EndInit();
             ResumeLayout(false);
         }
 
@@ -423,5 +514,13 @@
         private Button btnSilKat;
         private ComboBox cmbKategori;
         private DataGridView dgvAdminYemek;
+        private TabPage tabPage5;
+        private TextBox txtPass;
+        private TextBox txtMail;
+        private TextBox txtSoyadi;
+        private TextBox txtAdi;
+        private Button btnKullanıcıGunc;
+        private Button btnPersonSil;
+        private DataGridView dgvPersons;
     }
 }

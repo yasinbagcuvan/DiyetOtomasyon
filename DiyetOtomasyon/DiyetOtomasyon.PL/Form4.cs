@@ -2,6 +2,7 @@
 using DiyetOtomasyon.BL.Models;
 using DiyetOtomasyon.DAL.Context;
 using DiyetOtomasyon.DAL.Entities;
+using DiyetOtomasyon.PL.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections;
@@ -34,7 +35,7 @@ namespace DiyetOtomasyon.PL
         Form _refForm;
         MealTimeModel selecetedMealTimeModel;
         MealTimeModel selecetedMealTimeModel1;
-
+        PersonMealModel deletePmModel;
         public Form4()
         {
             _mainForm = Program.MainForm;
@@ -50,24 +51,19 @@ namespace DiyetOtomasyon.PL
         private void Form4_Load(object sender, EventArgs e)
         {
 
-
+            dgvOgunListem.DataSource = OgunListeGetir();
             dgvYemekListesi.DataSource = mealManager.GetAll();
             cmbOgun.DataSource = mealTimeManager.GetAll();
-            MessageBox.Show("UserId : " + Program.LoginUserId);
-            MessageBox.Show("UserName : " + Program.Person.FirstName);
             cmbTip.DataSource = portionManager.GetAll();
             cmbOgunler.DataSource = mealTimeManager.GetAll();
             cmbAylıkOgun.DataSource = mealTimeManager.GetAll();
             cmbYemekler.DataSource = mealManager.GetAll();
             cmbAylıkYemek.DataSource = mealManager.GetAll();
-
-
         }
-
 
         private void btnEkleYemek_Click(object sender, EventArgs e)
         {
-            if (/*txtAdet.Text == "" ||*/ cmbOgun.SelectedText == null || cmbTip.SelectedText == null || selectedMeal == null)
+            if (cmbOgun.SelectedText == null || cmbTip.SelectedText == null || selectedMeal == null)
             {
                 MessageBox.Show("Lütfen boş alan bırakmayınız", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -77,16 +73,13 @@ namespace DiyetOtomasyon.PL
                 MealTimeModel mealTime = (MealTimeModel)cmbOgun.SelectedItem;
                 PersonMealModel.MealTimeId = mealTime.Id;
                 PersonMealModel.PersonId = Program.LoginUserId;
-
-                //Portion.Size = int.Parse(txtAdet.Text);
                 Portion = (PortionModel)cmbTip.SelectedItem;
-                //Portion = portionManager.Add(Portion);
 
                 PersonMealModel.PortionId = Portion.Id;
                 personMealManager.Add(PersonMealModel);
                 dgvYemekListesi.DataSource = mealManager.GetAll();
                 MessageBox.Show($"{selectedMeal.MealName} {mealTime.Name} öğününe {Portion.Size} porsiyon eklenmiştir  ", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                OgunListeGetir();
             }
 
         }
@@ -103,7 +96,6 @@ namespace DiyetOtomasyon.PL
                             where p.Id == Program.LoginUserId
                             where (DateTime.Now.Day) - (pm.CreatedDate.Day) <= 1
                             select new { KisiAdi = p.FirstName + " " + p.LastName, YemekAdi = m.MealName, Kalorisi = m.Calorie, OgunAdi = mt.Name, Porsiyon = pt.Size, ToplamKalori = (int)(m.Calorie * pt.Size), Tarih = pm.CreatedDate }).ToList();
-
 
             int calSum = dayList.Sum(x => x.ToplamKalori);
             lblToplamKalori.Text = "Toplam Kalori : " + calSum.ToString();
@@ -147,54 +139,6 @@ namespace DiyetOtomasyon.PL
                 lblToplamOgun.Text = "Toplam Oğün Sayınız : " + Sayac.ToString();
             }
         }
-        //var weekList =
-        //               (from pm in personMealManager.GetAll()
-        //                join p in personManager.GetAll() on pm.PersonId equals p.Id
-        //                join m in mealManager.GetAll() on pm.MealId equals m.Id
-        //                join mt in mealTimeManager.GetAll() on pm.MealTimeId equals mt.Id
-        //                join pt in portionManager.GetAll() on pm.PortionId equals pt.Id
-        //                join c in categoryManager.GetAll() on m.CategoryId equals c.Id
-        //                //where p.Id == Program.LoginUserId
-        //                where (DateTime.Now.Day) - (pm.CreatedDate.Day) <= 7
-        //                group pm by new
-        //                {
-        //                    p.FirstName,
-        //                    p.LastName,
-        //                    mt.Name,
-        //                    c.CategoryName
-        //                }
-        //                into gcs
-        //                select new { KisiAdi = gcs.Key.FirstName, KisiSoyadi = gcs.Key.LastName, OgunAdi = gcs.Key.Name, KategoriAdi = gcs.Key.CategoryName }
-        //                );
-
-        //dgvWeekList.DataSource = weekList.ToList();
-
-        //private void btnMountList_Click(object sender, EventArgs e)
-        //{
-        //    var mounthList =
-        //                   (from pm in personMealManager.GetAll()
-        //                    join p in personManager.GetAll() on pm.PersonId equals p.Id
-        //                    join m in mealManager.GetAll() on pm.MealId equals m.Id
-        //                    join mt in mealTimeManager.GetAll() on pm.MealTimeId equals mt.Id
-        //                    join pt in portionManager.GetAll() on pm.PortionId equals pt.Id
-        //                    join c in categoryManager.GetAll() on m.CategoryId equals c.Id
-        //                    //where p.Id == Program.LoginUserId
-        //                    where (DateTime.Now.Day) - (pm.CreatedDate.Day) <= 30
-        //                    group pm by new
-        //                    {
-        //                        p.FirstName,
-        //                        p.LastName,
-        //                        mt.Name,
-        //                        c.CategoryName
-        //                    }
-        //                    into gcs
-        //                    select new { KisiAdiSoyadi = gcs.Key.FirstName, OgunAdi = gcs.Key.Name, KategoriAdi = gcs.Key.CategoryName }
-        //                    );
-
-        //    dgvMountList.DataSource = mounthList.ToList();
-        //}
-
-        
 
         private void Form4_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -345,6 +289,49 @@ namespace DiyetOtomasyon.PL
                 select new { OgunAdi = gcs.Key.Name, YemekAdi = gcs.Key.MealName, PorsiyonMiktari = gcs.Key.Size, Tarih = gcs.Key.CreatedDate }
                 );
             dgvYemekKiyas.DataSource = orderList.ToList();
+        }
+        public object OgunListeGetir()
+        {
+            var ogunList =
+               (from pm in personMealManager.GetAll()
+                join p in personManager.GetAll() on pm.PersonId equals p.Id
+                join m in mealManager.GetAll() on pm.MealId equals m.Id
+                join mt in mealTimeManager.GetAll() on pm.MealTimeId equals mt.Id
+                join pt in portionManager.GetAll() on pm.PortionId equals pt.Id
+                where p.Id == Program.LoginUserId
+                where (DateTime.Now.Minute) - (pm.CreatedDate.Minute) <= 30
+                orderby pt.Size descending
+                group pm by new
+                {
+                    pm.PersonId,
+                    pm.MealId,
+                    pt.Size,
+                    mt.Name,
+                    m.MealName,
+                    m.Calorie,
+                    pm.CreatedDate
+                }
+                into gcs
+                select new OgunView { YemekAdi = gcs.Key.MealName, PorsiyonMiktari = gcs.Key.Size, HesaplanmışKalori = gcs.Key.Calorie * gcs.Key.Size, OgunAdi = gcs.Key.Name, Tarih = gcs.Key.CreatedDate, PersonMealCreatedId = gcs.Key.PersonId + "_" + gcs.Key.MealId + "_" + gcs.Key.CreatedDate }
+                );
+
+            return dgvOgunListem.DataSource = ogunList.ToList();
+        }
+
+        private void dgvOgunListem_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var x = (OgunView)dgvOgunListem.SelectedRows[0].DataBoundItem;
+            var xy = x.PersonMealCreatedId.Split('_');
+            int PersonId = int.Parse(xy[0]);
+            int MealId = int.Parse(xy[1]);
+            DateTime CreatedId = Convert.ToDateTime(xy[2]);
+            deletePmModel = personMealManager.Search((pm => pm.PersonId == PersonId && pm.CreatedDate == CreatedId && pm.MealId == MealId)).FirstOrDefault();
+
+        }
+
+        private void btnOgunSil_Click(object sender, EventArgs e)
+        {
+            personMealManager.Delete(deletePmModel);
         }
     }
 }

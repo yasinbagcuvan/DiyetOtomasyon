@@ -17,7 +17,7 @@ namespace DiyetOtomasyon.BL.Manager.Abstract
         //içerisine gönderileni gerçekten silecek
         public void Remove(TModel model);
 
-
+        public void Delete(TModel model);
         //içerisine gönderileni güncellecek
         public void Update(TModel model);
 

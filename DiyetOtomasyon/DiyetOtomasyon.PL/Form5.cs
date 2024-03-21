@@ -1,6 +1,8 @@
 ﻿using DiyetOtomasyon.BL.Manager.Concrete;
 using DiyetOtomasyon.BL.Models;
+using DiyetOtomasyon.DAL.Context;
 using DiyetOtomasyon.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,11 +20,14 @@ namespace DiyetOtomasyon.PL
         MealManager mealManager = new MealManager();
         PortionManager portionManager = new PortionManager();
         MealTimeManager timeManager = new MealTimeManager();
+        PersonManager personManager = new PersonManager();
+        DiyetDbContext db = new DiyetDbContext();
         MealModel selectedMeal;
         PortionModel selectedPortion;
         MealTimeModel selecetedMealTime;
         CategoryModel selectedCategory;
         CategoryManager categoryManager = new CategoryManager();
+        Person selecetedPersonDB;
         Form _refForm;
         Form _mainForm;
 
@@ -44,21 +49,9 @@ namespace DiyetOtomasyon.PL
             dgvPorsiyon.DataSource = portionManager.GetAll();
             dgvOgun.DataSource = timeManager.GetAll();
             dgvKategoriList.DataSource = categoryManager.GetAll();
+            dgvPersons.DataSource = db.Persons.ToList();
             RefreshKategori();
         }
-        private void txtPorsiyonAdet_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtPorsiyonAdet_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            //if (e.Handled = !char.IsDigit(e.KeyChar))
-            //{
-            //    txtPorsiyonAdet.Text = "";
-            //}
-        }
-
         private void txtYemekCalorie_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.Handled = !char.IsDigit(e.KeyChar))
@@ -76,10 +69,8 @@ namespace DiyetOtomasyon.PL
                     MessageBox.Show("LÜTFEN BOŞ ALANLARI DOLDURUNUZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     selectedMeal = null;
                 }
-
                 else
                 {
-
                     MealModel meal = new MealModel();
                     meal.Calorie = short.Parse(txtYemekCalorie.Text);
                     meal.MealName = txtYemekAdi.Text;
@@ -131,7 +122,6 @@ namespace DiyetOtomasyon.PL
                 selectedMeal = null;
             }
         }
-
         private void dgvAdminYemek_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             selectedMeal = (MealModel)dgvAdminYemek.SelectedRows[0].DataBoundItem;
@@ -172,8 +162,6 @@ namespace DiyetOtomasyon.PL
             }
 
         }
-
-
         private void RefreshKategori()
         {
             cmbKategori.DataSource = categoryManager.GetAll().Select(c => new KeyValuePair<int, string>(key: c.Id, value: c.CategoryName)).ToList();
@@ -263,7 +251,6 @@ namespace DiyetOtomasyon.PL
             }
 
         }
-
         private void btnOgunEkle_Click(object sender, EventArgs e)
         {
             if (!timeManager.GetAll().Where(m => m.Name.ToLower() == txtOgunAdi.Text.ToLower()).Any())
@@ -293,7 +280,6 @@ namespace DiyetOtomasyon.PL
                 selecetedMealTime = null;
             }
         }
-
         private void btnOgunSil_Click(object sender, EventArgs e)
         {
             if (selecetedMealTime == null)
@@ -312,7 +298,6 @@ namespace DiyetOtomasyon.PL
             }
 
         }
-
 
         private void btnOgnGunc_Click(object sender, EventArgs e)
         {
@@ -343,7 +328,6 @@ namespace DiyetOtomasyon.PL
             }
 
         }
-
         private void btnEkleCat_Click(object sender, EventArgs e)
         {
             if (!categoryManager.GetAll().Where(m => m.CategoryName.ToLower() == txtKatAdi.Text.ToLower()).Any())
@@ -381,7 +365,7 @@ namespace DiyetOtomasyon.PL
             if (selectedCategory == null)
             {
                 MessageBox.Show("SİLMEK İÇİN BİR KATEGORI SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+
             }
             else
             {
@@ -423,11 +407,6 @@ namespace DiyetOtomasyon.PL
             }
         }
 
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form5_FormClosed(object sender, FormClosedEventArgs e)
         {
             _mainForm.Show();
@@ -450,6 +429,63 @@ namespace DiyetOtomasyon.PL
         {
             selectedCategory = (CategoryModel)dgvKategoriList.SelectedRows[0].DataBoundItem;
             txtKatAdi.Text = selectedCategory.CategoryName;
+        }
+
+        private void btnPersonSil_Click(object sender, EventArgs e)
+        {
+            if (selecetedPersonDB == null)
+            {
+                MessageBox.Show("SİLMEK İÇİN BİR KULLANICI SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                db.Remove(selecetedPersonDB);
+                MessageBox.Show("Kullanıcı Silinmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtKatAdi.Text = "";
+                dgvPersons.DataSource = db.Persons.ToList();
+                selecetedPersonDB = null;
+            }
+        }
+
+        private void dgvPersons_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            selecetedPersonDB = (Person)dgvPersons.SelectedRows[0].DataBoundItem;
+            txtAdi.Text = selecetedPersonDB.FirstName;
+            txtSoyadi.Text = selecetedPersonDB.LastName;
+            txtMail.Text = selecetedPersonDB.Email;
+            txtPass.Text = selecetedPersonDB.Password;
+        }
+
+        private void btnKullanıcıGunc_Click(object sender, EventArgs e)
+        {
+            if (!db.Persons.ToList().Where(m => m.Email.ToLower() == txtMail.Text.ToLower()).Any())
+            {
+                if (selecetedPersonDB == null)
+                {
+                    MessageBox.Show("GUNCELLEMEK İÇİN BİR KULLANICI SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    selecetedPersonDB.Email = txtMail.Text;
+                    selecetedPersonDB.LastName = txtSoyadi.Text;
+                    selecetedPersonDB.FirstName = txtAdi.Text;
+                    selecetedPersonDB.Password = txtPass.Text;
+
+                    db.Persons.Update(selecetedPersonDB);
+                    MessageBox.Show("KULLANICI Güncellenmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtAdi.Text = "";
+                    txtSoyadi.Text = "";
+                    txtMail.Text = "";
+                    txtPass.Text = "";
+                    dgvPersons.DataSource = db.Persons.ToList();
+                    selecetedPersonDB = null;
+                }
+            }
+            else
+            {
+                MessageBox.Show("ZATEN BÖYLE BİR EMAİL ADRESLİ KULLANICI VAR", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                selecetedPersonDB = null;
+            }
         }
     }
 }

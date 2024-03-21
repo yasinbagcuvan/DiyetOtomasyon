@@ -44,7 +44,7 @@ namespace DiyetOtomasyon.DAL.Repository.Abstract
 
 
         }
-
+        
 
         public IQueryable<T> GetAll()
         {
@@ -75,24 +75,46 @@ namespace DiyetOtomasyon.DAL.Repository.Abstract
 
         public void Update(T entity)
         {
-            //güncelleme tarihi o anın tarihi
-            entity.UpdatedDate = DateTime.Now;
+            if (entity.Status != Status.Deleted)
+            {
+                //güncelleme tarihi o anın tarihi
+                entity.UpdatedDate = DateTime.Now;
 
-            //Oluşturulma tarihi
-            //entity.CreatedDate = GetById(entity.Id).CreatedDate;
+                //Oluşturulma tarihi
+                //entity.CreatedDate = GetById(entity.Id).CreatedDate;
 
-            //statüyü güncellendi yap
+                //statüyü güncellendi yap
 
-
-            //silindi değilse updated yap.
+                //silindi değilse updated yap.
 
                 entity.Status = Status.Updated;
 
-            entities.Update(entity);
+                entities.Update(entity);
 
-            _db.SaveChanges();
+                _db.SaveChanges();
+            }
+            else
+            {
+                entities.Update(entity);
+                _db.SaveChanges();
+            }
+            
         }
+        public void Delete(T entity)
+        {
 
+            //silinme tarihini o anın tarihine ata
+            entity.DeletedDate = DateTime.Now;
+
+            //statusunü deleted yapacak ama tablodan silmeyecek
+            entity.Status = Status.Deleted;
+
+            _db.Entry(entity).State = EntityState.Detached;
+            //_db.SaveChanges();
+            //güncelleme işlemini yap
+            Update(entity);
+
+        }
 
         public IQueryable<T> GetAllWithIncludes(params string[] navigationProperties)
         {

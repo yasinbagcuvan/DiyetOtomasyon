@@ -108,7 +108,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form3";
             FormClosed += Form3_FormClosed;
-            Load += Form3_Load;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -15,7 +15,7 @@ namespace DiyetOtomasyon.DAL.Repository.Abstract
         //içerisine gönderileni gerçekten silecek
         public void Remove(T entity);
 
-
+        public void Delete(T entity);
         //içerisine gönderileni güncellecek
         public void Update(T entity);
 

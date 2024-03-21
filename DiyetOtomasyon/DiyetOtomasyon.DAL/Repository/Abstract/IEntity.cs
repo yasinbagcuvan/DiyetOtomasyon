@@ -14,6 +14,7 @@ namespace DiyetOtomasyon.DAL.Repository.Abstract
         DateTime CreatedDate { get; set; }
 
         DateTime? UpdatedDate { get; set; }
+        DateTime? DeletedDate { get; set; }
 
         Status Status { get; set; }
     }

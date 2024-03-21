@@ -31,11 +31,9 @@ namespace DiyetOtomasyon.PL
             string email = txtEmail1.Text;
             string pass = txtPass1.Text;
 
-
             if (email == "" || pass == "")
             {
                 MessageBox.Show("Lütfen boş alan bırakmayınız", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                 txtEmail1.Text = "";
                 txtPass1.Text = "";
             }
@@ -43,7 +41,6 @@ namespace DiyetOtomasyon.PL
             {
                 PersonManager personManager = new PersonManager();
                 LoginUser = personManager.FindUser(email, pass);
-
 
                 if (LoginUser != null)
                 {
@@ -76,15 +73,8 @@ namespace DiyetOtomasyon.PL
 
         private void btnGeriDon_Click(object sender, EventArgs e)
         {
-            
             this.Close();
         }
-
-        private void Form3_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form3_FormClosed(object sender, FormClosedEventArgs e)
         {
             _mainform.Show();

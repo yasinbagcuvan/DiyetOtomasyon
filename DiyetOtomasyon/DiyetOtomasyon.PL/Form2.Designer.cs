@@ -78,7 +78,7 @@
             lblPass.Size = new Size(53, 21);
             lblPass.TabIndex = 3;
             lblPass.Text = "Şifre :";
-            lblPass.Click += label3_Click;
+
             // 
             // txtAd
             // 
@@ -137,7 +137,6 @@
             Name = "Form2";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form2";
-            Load += Form2_Load;
             ResumeLayout(false);
             PerformLayout();
         }

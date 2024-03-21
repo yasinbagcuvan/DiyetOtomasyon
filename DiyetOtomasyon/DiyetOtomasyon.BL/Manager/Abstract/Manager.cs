@@ -74,6 +74,11 @@ namespace DiyetOtomasyon.BL.Manager.Abstract
             return models;
 
         }
+        public void Delete(TModel model)
+        {
+            TEntity convertedEntity = _mapper.Map<TEntity>(model);
+            _repository.Delete(convertedEntity);
+        }
 
         public TModel GetById(int id)
         {

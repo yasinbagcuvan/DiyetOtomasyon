@@ -44,7 +44,7 @@
             lblHosgeldiniz.Size = new Size(503, 35);
             lblHosgeldiniz.TabIndex = 0;
             lblHosgeldiniz.Text = "DIYET UYGULAMASINA HOSGELDINIZ";
-            lblHosgeldiniz.Click += lblHosgeldiniz_Click;
+
             // 
             // btnGiris
             // 
