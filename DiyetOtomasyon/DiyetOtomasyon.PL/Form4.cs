@@ -2,6 +2,7 @@
 using DiyetOtomasyon.BL.Models;
 using DiyetOtomasyon.DAL.Context;
 using DiyetOtomasyon.DAL.Entities;
+using DiyetOtomasyon.DAL.Enums;
 using DiyetOtomasyon.PL.Models;
 using Microsoft.Data.SqlClient;
 using System;
@@ -19,23 +20,28 @@ namespace DiyetOtomasyon.PL
 {
     public partial class Form4 : Form
     {
-        DiyetDbContext db = new DiyetDbContext();
+        MealManager mealManager = new MealManager();
         MealModel selectedMeal;
         MealModel cmbMeal;
         MealModel cmbMeal1;
+
         PersonMealManager personMealManager = new();
-        PersonManager personManager = new PersonManager();
-        MealManager mealManager = new MealManager();
-        MealTimeManager mealTimeManager = new();
-        PortionManager portionManager = new PortionManager();
-        CategoryManager categoryManager = new CategoryManager();
         PersonMealModel PersonMealModel = new PersonMealModel();
+        PersonMealModel deletePmModel;
+
+        PortionManager portionManager = new PortionManager();
         PortionModel Portion;
-        Form _mainForm;
-        Form _refForm;
+
+        MealTimeManager mealTimeManager = new();
         MealTimeModel selecetedMealTimeModel;
         MealTimeModel selecetedMealTimeModel1;
-        PersonMealModel deletePmModel;
+
+        PersonManager personManager = new PersonManager();
+
+        CategoryManager categoryManager = new CategoryManager();
+
+        Form _mainForm;
+        Form _refForm;
         public Form4()
         {
             _mainForm = Program.MainForm;
@@ -51,14 +57,15 @@ namespace DiyetOtomasyon.PL
         private void Form4_Load(object sender, EventArgs e)
         {
 
-            dgvOgunListem.DataSource = OgunListeGetir();
-            dgvYemekListesi.DataSource = mealManager.GetAll();
-            cmbOgun.DataSource = mealTimeManager.GetAll();
-            cmbTip.DataSource = portionManager.GetAll();
+            OgunListe();
+            YemekListe("Id");
             cmbOgunler.DataSource = mealTimeManager.GetAll();
-            cmbAylıkOgun.DataSource = mealTimeManager.GetAll();
-            cmbYemekler.DataSource = mealManager.GetAll();
-            cmbAylıkYemek.DataSource = mealManager.GetAll();
+            ComboAylikOgunListe();
+            ComboAylikYemekListe();
+            ComboOgunListe();
+            ComboTipListe();
+            ComboYemekListe();
+
         }
 
         private void btnEkleYemek_Click(object sender, EventArgs e)
@@ -74,10 +81,10 @@ namespace DiyetOtomasyon.PL
                 PersonMealModel.MealTimeId = mealTime.Id;
                 PersonMealModel.PersonId = Program.LoginUserId;
                 Portion = (PortionModel)cmbTip.SelectedItem;
-
+                YemekListe("Id");
                 PersonMealModel.PortionId = Portion.Id;
                 personMealManager.Add(PersonMealModel);
-                dgvYemekListesi.DataSource = mealManager.GetAll();
+
                 MessageBox.Show($"{selectedMeal.MealName} {mealTime.Name} öğününe {Portion.Size} porsiyon eklenmiştir  ", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 OgunListeGetir();
             }
@@ -299,6 +306,7 @@ namespace DiyetOtomasyon.PL
                 join mt in mealTimeManager.GetAll() on pm.MealTimeId equals mt.Id
                 join pt in portionManager.GetAll() on pm.PortionId equals pt.Id
                 where p.Id == Program.LoginUserId
+                where pm.Status != Status.Deleted
                 where (DateTime.Now.Minute) - (pm.CreatedDate.Minute) <= 30
                 orderby pt.Size descending
                 group pm by new
@@ -315,7 +323,10 @@ namespace DiyetOtomasyon.PL
                 select new OgunView { YemekAdi = gcs.Key.MealName, PorsiyonMiktari = gcs.Key.Size, HesaplanmışKalori = gcs.Key.Calorie * gcs.Key.Size, OgunAdi = gcs.Key.Name, Tarih = gcs.Key.CreatedDate, PersonMealCreatedId = gcs.Key.PersonId + "_" + gcs.Key.MealId + "_" + gcs.Key.CreatedDate }
                 );
 
-            return dgvOgunListem.DataSource = ogunList.ToList();
+            dgvOgunListem.DataSource = ogunList.ToList();
+            dgvOgunListem.Columns["PersonMealCreatedId"].Visible = false;
+
+            return dgvOgunListem.DataSource;
         }
 
         private void dgvOgunListem_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -326,12 +337,58 @@ namespace DiyetOtomasyon.PL
             int MealId = int.Parse(xy[1]);
             DateTime CreatedId = Convert.ToDateTime(xy[2]);
             deletePmModel = personMealManager.Search((pm => pm.PersonId == PersonId && pm.CreatedDate == CreatedId && pm.MealId == MealId)).FirstOrDefault();
-
         }
 
         private void btnOgunSil_Click(object sender, EventArgs e)
         {
-            personMealManager.Delete(deletePmModel);
+            if (deletePmModel is not null)
+            {
+                personMealManager.Delete(deletePmModel);
+                OgunListeGetir();
+            }
+            else
+            {
+                MessageBox.Show("LÜTFEN BİR ÖĞÜN SEÇİNİZ ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        private void YemekListe(params string[] kolonlar)
+        {
+            dgvYemekListesi.DataSource = mealManager.GetAll();
+            foreach (var item in kolonlar)
+            {
+                dgvYemekListesi.Columns[item].Visible = false;
+            }
+        }
+
+
+        private void OgunListe(params string[] kolonlar)
+        {
+            dgvOgunListem.DataSource = OgunListeGetir();
+        }
+
+        private void ComboOgunListe(params string[] kolonlar)
+        {
+            cmbOgun.DataSource = mealTimeManager.GetAll();
+        }
+
+        private void ComboTipListe(params string[] kolonlar)
+        {
+            cmbTip.DataSource = portionManager.GetAll();
+        }
+
+        private void ComboAylikOgunListe(params string[] kolonlar)
+        {
+            cmbAylıkOgun.DataSource = mealTimeManager.GetAll();
+        }
+
+        private void ComboYemekListe(params string[] kolonlar)
+        {
+            cmbYemekler.DataSource = mealManager.GetAll();
+        }
+
+        private void ComboAylikYemekListe(params string[] kolonlar)
+        {
+            cmbAylıkYemek.DataSource = mealManager.GetAll();
         }
     }
 }

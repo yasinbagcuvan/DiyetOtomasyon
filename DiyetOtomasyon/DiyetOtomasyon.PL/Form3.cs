@@ -15,7 +15,6 @@ namespace DiyetOtomasyon.PL
     public partial class Form3 : Form
     {
         private readonly Form _mainform;
-        PersonManager PersonManager = new PersonManager();
         public PersonModel LoginUser;
 
         public Form3()
@@ -34,8 +33,7 @@ namespace DiyetOtomasyon.PL
             if (email == "" || pass == "")
             {
                 MessageBox.Show("Lütfen boş alan bırakmayınız", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtEmail1.Text = "";
-                txtPass1.Text = "";
+                EmailPassReset();
             }
             else
             {
@@ -64,8 +62,7 @@ namespace DiyetOtomasyon.PL
                 else
                 {
                     MessageBox.Show("Kullanıcı Adı veya Şifre Yanlış", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtEmail1.Text = "";
-                    txtPass1.Text = "";
+                    EmailPassReset();
                 }
 
             }
@@ -78,6 +75,12 @@ namespace DiyetOtomasyon.PL
         private void Form3_FormClosed(object sender, FormClosedEventArgs e)
         {
             _mainform.Show();
+        }
+
+        private void EmailPassReset()
+        {
+            txtEmail1.Text = "";
+            txtPass1.Text = "";
         }
     }
 }

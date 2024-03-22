@@ -44,7 +44,7 @@ namespace DiyetOtomasyon.DAL.Repository.Abstract
 
 
         }
-        
+
 
         public IQueryable<T> GetAll()
         {
@@ -88,28 +88,24 @@ namespace DiyetOtomasyon.DAL.Repository.Abstract
                 //silindi değilse updated yap.
 
                 entity.Status = Status.Updated;
-
-                entities.Update(entity);
-
-                _db.SaveChanges();
             }
-            else
-            {
-                entities.Update(entity);
-                _db.SaveChanges();
-            }
-            
+            _db.Entry(entity).State = EntityState.Modified;
+
+            entities.Update(entity);
+
+            _db.SaveChanges();
+
         }
         public void Delete(T entity)
         {
 
             //silinme tarihini o anın tarihine ata
+            //_db.Entry(entity).State = EntityState.Detached;
             entity.DeletedDate = DateTime.Now;
 
             //statusunü deleted yapacak ama tablodan silmeyecek
             entity.Status = Status.Deleted;
 
-            _db.Entry(entity).State = EntityState.Detached;
             //_db.SaveChanges();
             //güncelleme işlemini yap
             Update(entity);
@@ -161,8 +157,8 @@ namespace DiyetOtomasyon.DAL.Repository.Abstract
 
         }
 
-        
+
     }
-    
+
 }
 

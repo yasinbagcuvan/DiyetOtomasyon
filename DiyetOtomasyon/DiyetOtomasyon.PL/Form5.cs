@@ -24,6 +24,7 @@ namespace DiyetOtomasyon.PL
         DiyetDbContext db = new DiyetDbContext();
         MealModel selectedMeal;
         PortionModel selectedPortion;
+        PortionModel portion = new PortionModel();
         MealTimeModel selecetedMealTime;
         CategoryModel selectedCategory;
         CategoryManager categoryManager = new CategoryManager();
@@ -45,11 +46,11 @@ namespace DiyetOtomasyon.PL
         private void Form5_Load(object sender, EventArgs e)
         {
 
-            dgvAdminYemek.DataSource = mealManager.GetAll();
-            dgvPorsiyon.DataSource = portionManager.GetAll();
-            dgvOgun.DataSource = timeManager.GetAll();
-            dgvKategoriList.DataSource = categoryManager.GetAll();
-            dgvPersons.DataSource = db.Persons.ToList();
+            RefreshDgvAdminYemek();
+            RefreshDgvPorsiyon();
+            RefreshDgvOgun();
+            RefreshDgvKategori();
+            RefreshDgvPersons();
             RefreshKategori();
         }
         private void txtYemekCalorie_KeyPress(object sender, KeyPressEventArgs e)
@@ -66,7 +67,7 @@ namespace DiyetOtomasyon.PL
             {
                 if (txtYemekAdi.Text == "" || txtYemekCalorie.Text == "" || cmbKategori.SelectedItem == null)
                 {
-                    MessageBox.Show("LÜTFEN BOŞ ALANLARI DOLDURUNUZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    msgBosAlanDoldur();
                     selectedMeal = null;
                 }
                 else
@@ -77,48 +78,33 @@ namespace DiyetOtomasyon.PL
                     meal.Description = txtYemekAciklama.Text;
                     KeyValuePair<int, string> selectedCategory = (KeyValuePair<int, string>)cmbKategori.SelectedItem;
                     meal.CategoryId = selectedCategory.Key;
-                    //var meals = mealManager.GetAllWithIncludes(cmbKategori.SelectedItem.ToString()).Single();
-                    //meal.Category.CategoryName = meals.Category.CategoryName;
                     mealManager.Add(meal);
-                    MessageBox.Show("Yemek Eklenmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    txtYemekAdi.Text = "";
-                    txtYemekCalorie.Text = "";
-                    txtYemekAciklama.Text = "";
-                    dgvAdminYemek.DataSource = mealManager.GetAll();
+                    msgAddedSuccess("Yemek");
+                    MealTextReset();
+                    RefreshDgvAdminYemek();
                     selectedMeal = null;
                 }
             }
             else
             {
-                MessageBox.Show("ZATEN BÖYLE BİR YEMEK VAR", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                msgAlreadyUsed("YEMEK");
                 selectedMeal = null;
             }
         }
 
         private void btnYemekSil_Click(object sender, EventArgs e)
         {
-
-            //foreach (var item in mealManager.GetAll())
-            //{
-            //    if (item.Id != selectedMeal.Id)
-            //    {
-            //        MessageBox.Show(" BÖYLE BİR YEMEK BULUNAMADI", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-
-            //}
             if (selectedMeal == null)
             {
-                MessageBox.Show("SİLMEK İÇİN BİR YEMEK SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                msgForRemove("YEMEK");
                 return;
             }
             else
             {
                 mealManager.Remove(selectedMeal);
-                MessageBox.Show("Yemek Silinmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                txtYemekAdi.Text = "";
-                txtYemekCalorie.Text = "";
-                txtYemekAciklama.Text = "";
-                dgvAdminYemek.DataSource = mealManager.GetAll();
+                msgRemoveSuccessed("Yemek");
+                MealTextReset();
+                RefreshDgvAdminYemek();
                 selectedMeal = null;
             }
         }
@@ -136,10 +122,8 @@ namespace DiyetOtomasyon.PL
             {
                 if (selectedMeal == null)
                 {
-                    MessageBox.Show("GUNCELLEMEK İÇİN BİR YEMEK SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtYemekAdi.Text = "";
-                    txtYemekCalorie.Text = "";
-                    txtYemekAciklama.Text = "";
+                    msgUpdateForModel("YEMEK");
+                    MealTextReset();
                 }
                 else
                 {
@@ -147,21 +131,19 @@ namespace DiyetOtomasyon.PL
                     selectedMeal.MealName = txtYemekAdi.Text;
                     selectedMeal.Description = txtYemekAciklama.Text;
                     mealManager.Update(selectedMeal);
-                    MessageBox.Show("Yemek Güncellenmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    txtYemekAdi.Text = "";
-                    txtYemekCalorie.Text = "";
-                    txtYemekAciklama.Text = "";
-                    dgvAdminYemek.DataSource = mealManager.GetAll();
+                    msgUpdateSuccessed("Yemek");
+                    MealTextReset();
+                    RefreshDgvAdminYemek();
                     selectedMeal = null;
                 }
             }
             else
             {
-                MessageBox.Show("ZATEN BÖYLE BİR YEMEK  VAR", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                msgAlreadyUsed("YEMEK");
                 selectedMeal = null;
             }
-
         }
+
         private void RefreshKategori()
         {
             cmbKategori.DataSource = categoryManager.GetAll().Select(c => new KeyValuePair<int, string>(key: c.Id, value: c.CategoryName)).ToList();
@@ -172,51 +154,41 @@ namespace DiyetOtomasyon.PL
         {
             if (!portionManager.GetAll().Where(m => m.Size.ToString() == txtPorsiyonAdet.Text.ToString()).Any())
             {
-                if (txtPorsiyonAdet.Text == "" /*|| txtPosiyonTipi.Text == ""*/)
+                if (txtPorsiyonAdet.Text == "")
                 {
-                    MessageBox.Show("PORSIYON ADETI BOŞ OLAMAZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    msgBosAlanDoldur();
                     txtPorsiyonAdet.Text = "";
                 }
-
                 else
                 {
-                    PortionModel portion = new PortionModel();
                     portion.Size = short.Parse(txtPorsiyonAdet.Text);
-                    //portion.Type = txtPosiyonTipi.Text;
-
                     portionManager.Add(portion);
-                    MessageBox.Show("Porsiyon Eklenmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    msgAddedSuccess("Porsiyon");
                     txtPorsiyonAdet.Text = "";
-                    //txtPosiyonTipi.Text = "";
-                    dgvPorsiyon.DataSource = portionManager.GetAll();
+                    RefreshDgvPorsiyon();
                     selectedPortion = null;
-
                 }
             }
             else
             {
-                MessageBox.Show("ZATEN BÖYLE BİR PORSİYON  VAR", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                msgAlreadyUsed("PORSİYON");
                 selectedPortion = null;
             }
-
         }
 
         private void btnPorsiyonSil_Click(object sender, EventArgs e)
         {
             if (selectedPortion == null)
             {
-                MessageBox.Show("SİLMEK İÇİN BİR PORSİYON SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                msgForRemove("PORSİYON");
                 txtPorsiyonAdet.Text = "";
             }
-
-
             else
             {
                 portionManager.Remove(selectedPortion);
-                MessageBox.Show("Porsiyon Silinmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                msgRemoveSuccessed("Porsiyon");
                 txtPorsiyonAdet.Text = "";
-                //txtPosiyonTipi.Text = "";
-                dgvPorsiyon.DataSource = portionManager.GetAll();
+                RefreshDgvPorsiyon();
                 selectedPortion = null;
             }
         }
@@ -227,26 +199,22 @@ namespace DiyetOtomasyon.PL
             {
                 if (selectedPortion == null)
                 {
-                    MessageBox.Show("GUNCELLEMEK İÇİN BİR PORSİYON SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    msgUpdateForModel("PORSİYON");
                     txtPorsiyonAdet.Text = "";
                 }
                 else
                 {
                     selectedPortion.Size = int.Parse(txtPorsiyonAdet.Text);
-                    //selectedPortion.Type = txtPosiyonTipi.Text;
-
                     portionManager.Update(selectedPortion);
-                    MessageBox.Show("Porsiyon Güncellenmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    msgUpdateSuccessed("Porsiyon");
                     txtPorsiyonAdet.Text = "";
-                    //txtPosiyonTipi.Text = "";
-
-                    dgvPorsiyon.DataSource = portionManager.GetAll();
+                    RefreshDgvPorsiyon();
                     selectedPortion = null;
                 }
             }
             else
             {
-                MessageBox.Show("ZATEN BÖYLE BİR PORSİYON VAR", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                msgAlreadyUsed("PORSİYON");
                 selectedPortion = null;
             }
 
@@ -257,26 +225,23 @@ namespace DiyetOtomasyon.PL
             {
                 if (txtOgunAdi.Text == "")
                 {
-                    MessageBox.Show("OGUN ADI BOŞ OLAMAZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    msgBosAlanDoldur();
                     txtOgunAdi.Text = "";
                 }
-
                 else
                 {
                     MealTimeModel mealTimeModel = new MealTimeModel();
                     mealTimeModel.Name = txtOgunAdi.Text;
-
-
                     timeManager.Add(mealTimeModel);
-                    MessageBox.Show("Ogün Eklenmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    msgAddedSuccess("Öğün");
                     txtOgunAdi.Text = "";
-                    dgvOgun.DataSource = timeManager.GetAll();
+                    RefreshDgvOgun();
                     selecetedMealTime = null;
                 }
             }
             else
             {
-                MessageBox.Show("ZATEN BÖYLE BİR OGUN VAR", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                msgAlreadyUsed("OGUN");
                 selecetedMealTime = null;
             }
         }
@@ -284,16 +249,16 @@ namespace DiyetOtomasyon.PL
         {
             if (selecetedMealTime == null)
             {
-                MessageBox.Show("SİLMEK İÇİN BİR OGUN SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                msgForRemove("ÖĞÜN");
                 txtOgunAdi.Text = "";
             }
 
             else
             {
                 timeManager.Remove(selecetedMealTime);
-                MessageBox.Show("Ogun Silinmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                msgRemoveSuccessed("Öğün");
                 txtOgunAdi.Text = "";
-                dgvOgun.DataSource = timeManager.GetAll();
+                RefreshDgvOgun();
                 selecetedMealTime = null;
             }
 
@@ -305,25 +270,24 @@ namespace DiyetOtomasyon.PL
             {
                 if (selecetedMealTime == null)
                 {
-                    MessageBox.Show("GUNCELLEMEK İÇİN BİR OGUN SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    msgUpdateForModel("OGUN");
                     txtOgunAdi.Text = "";
                     return;
                 }
                 else
                 {
-
                     selecetedMealTime.Name = txtOgunAdi.Text;
-
                     timeManager.Update(selecetedMealTime);
-                    MessageBox.Show("Ogun Güncellenmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    msgUpdateSuccessed("Öğün");
                     txtOgunAdi.Text = "";
-                    dgvOgun.DataSource = timeManager.GetAll();
+                    RefreshDgvOgun();
                     selecetedMealTime = null;
                 }
             }
             else
             {
-                MessageBox.Show("ZATEN BÖYLE BİR OGUN VAR", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                msgAlreadyUsed("OGUN");
+
                 selecetedMealTime = null;
             }
 
@@ -334,27 +298,25 @@ namespace DiyetOtomasyon.PL
             {
                 if (txtKatAdi.Text == "")
                 {
-                    MessageBox.Show("LÜTFEN BOŞ ALANLARI DOLDURUNUZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    msgBosAlanDoldur();
                     txtKatAdi.Text = "";
                 }
 
                 else
                 {
                     CategoryModel categoryModel = new CategoryModel();
-
                     categoryModel.CategoryName = txtKatAdi.Text;
-
                     categoryManager.Add(categoryModel);
-                    MessageBox.Show("Kategori Eklenmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    msgAddedSuccess("Kategori");
                     txtKatAdi.Text = "";
                     RefreshKategori();
-                    dgvKategoriList.DataSource = categoryManager.GetAll();
+                    RefreshDgvKategori();
                     selectedCategory = null;
                 }
             }
             else
             {
-                MessageBox.Show("ZATEN BÖYLE BİR KATEGORİ VAR", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                msgAlreadyUsed("KATEGORİ");
                 selectedCategory = null;
             }
 
@@ -364,15 +326,14 @@ namespace DiyetOtomasyon.PL
         {
             if (selectedCategory == null)
             {
-                MessageBox.Show("SİLMEK İÇİN BİR KATEGORI SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                msgForRemove("KATEGORİ");
             }
             else
             {
                 categoryManager.Remove(selectedCategory);
-                MessageBox.Show("Kategori Silinmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                msgRemoveSuccessed("Kategori");
                 txtKatAdi.Text = "";
-                dgvKategoriList.DataSource = categoryManager.GetAll();
+                RefreshDgvKategori();
                 selectedCategory = null;
                 cmbKategori.DataSource = categoryManager.GetAll();
             }
@@ -384,25 +345,23 @@ namespace DiyetOtomasyon.PL
             {
                 if (selectedCategory == null)
                 {
-                    MessageBox.Show("GUNCELLEMEK İÇİN BİR KATEGORI SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    msgUpdateForModel("KATEGORİ");
                     txtOgunAdi.Text = "";
                 }
                 else
                 {
-
                     selectedCategory.CategoryName = txtKatAdi.Text;
-
                     categoryManager.Update(selectedCategory);
-                    MessageBox.Show("Kategori Güncellenmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    msgUpdateSuccessed("Kategori");
                     txtOgunAdi.Text = "";
-                    dgvKategoriList.DataSource = categoryManager.GetAll();
+                    RefreshDgvKategori();
                     selectedCategory = null;
                     cmbKategori.DataSource = categoryManager.GetAll();
                 }
             }
             else
             {
-                MessageBox.Show("ZATEN BÖYLE BİR KATEGORİ VAR", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                msgAlreadyUsed("KATEGORİ");
                 selectedCategory = null;
             }
         }
@@ -435,14 +394,14 @@ namespace DiyetOtomasyon.PL
         {
             if (selecetedPersonDB == null)
             {
-                MessageBox.Show("SİLMEK İÇİN BİR KULLANICI SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                msgForRemove("KULLANICI");
             }
             else
             {
                 db.Remove(selecetedPersonDB);
-                MessageBox.Show("Kullanıcı Silinmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                msgRemoveSuccessed("Kullanıcı");
                 txtKatAdi.Text = "";
-                dgvPersons.DataSource = db.Persons.ToList();
+                RefreshDgvPersons();
                 selecetedPersonDB = null;
             }
         }
@@ -462,7 +421,7 @@ namespace DiyetOtomasyon.PL
             {
                 if (selecetedPersonDB == null)
                 {
-                    MessageBox.Show("GUNCELLEMEK İÇİN BİR KULLANICI SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    msgUpdateForModel("KULLANICI");
                 }
                 else
                 {
@@ -472,20 +431,86 @@ namespace DiyetOtomasyon.PL
                     selecetedPersonDB.Password = txtPass.Text;
 
                     db.Persons.Update(selecetedPersonDB);
-                    MessageBox.Show("KULLANICI Güncellenmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    msgUpdateSuccessed("Kullanıcı");
+
                     txtAdi.Text = "";
                     txtSoyadi.Text = "";
                     txtMail.Text = "";
                     txtPass.Text = "";
-                    dgvPersons.DataSource = db.Persons.ToList();
+                    RefreshDgvPersons();
                     selecetedPersonDB = null;
                 }
             }
             else
             {
-                MessageBox.Show("ZATEN BÖYLE BİR EMAİL ADRESLİ KULLANICI VAR", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                msgAlreadyUsed("EMAİL ADRESLİ KULLANICI");
                 selecetedPersonDB = null;
             }
         }
+
+        private void MealTextReset()
+        {
+            txtYemekAdi.Text = "";
+            txtYemekCalorie.Text = "";
+            txtYemekAciklama.Text = "";
+        }
+
+        private void msgBosAlanDoldur()
+        {
+            MessageBox.Show("LÜTFEN BOŞ ALANLARI DOLDURUNUZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void msgAlreadyUsed(string model)
+        {
+            MessageBox.Show($"ZATEN BÖYLE BİR {model} VAR", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void msgForRemove(string model)
+        {
+            MessageBox.Show($"SİLMEK İÇİN BİR {model} SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void msgRemoveSuccessed(string model)
+        {
+            MessageBox.Show($"{model} Silinmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void msgUpdateSuccessed(string model)
+        {
+            MessageBox.Show($"{model} Güncellenmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void RefreshDgvAdminYemek()
+        {
+            dgvAdminYemek.DataSource = mealManager.GetAll();
+        }
+        private void RefreshDgvPorsiyon()
+        {
+            dgvPorsiyon.DataSource = portionManager.GetAll();
+        }
+        private void RefreshDgvOgun()
+        {
+            dgvOgun.DataSource = timeManager.GetAll();
+        }
+        private void RefreshDgvKategori()
+        {
+            RefreshDgvKategori();
+        }
+
+        private void RefreshDgvPersons()
+        {
+            dgvPersons.DataSource = db.Persons.ToList();
+        }
+
+        private void msgAddedSuccess(string model)
+        {
+            MessageBox.Show($"{model} Eklenmiştir", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void msgUpdateForModel(string model)
+        {
+            MessageBox.Show($"GUNCELLEMEK İÇİN BİR {model} SEÇİNİZ", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
     }
 }
