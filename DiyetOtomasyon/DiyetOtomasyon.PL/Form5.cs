@@ -494,7 +494,7 @@ namespace DiyetOtomasyon.PL
         }
         private void RefreshDgvKategori()
         {
-            RefreshDgvKategori();
+            dgvKategoriList.DataSource = db.Categories.ToList();
         }
 
         private void RefreshDgvPersons()
