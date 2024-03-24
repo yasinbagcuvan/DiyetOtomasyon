@@ -44,10 +44,9 @@
             // 
             lblAd.AutoSize = true;
             lblAd.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            lblAd.Location = new Point(43, 72);
-            lblAd.Margin = new Padding(4, 0, 4, 0);
+            lblAd.Location = new Point(30, 43);
             lblAd.Name = "lblAd";
-            lblAd.Size = new Size(101, 32);
+            lblAd.Size = new Size(67, 21);
             lblAd.TabIndex = 0;
             lblAd.Text = "Adınız :";
             lblAd.UseWaitCursor = true;
@@ -56,10 +55,9 @@
             // 
             lblSoyad.AutoSize = true;
             lblSoyad.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            lblSoyad.Location = new Point(43, 132);
-            lblSoyad.Margin = new Padding(4, 0, 4, 0);
+            lblSoyad.Location = new Point(30, 79);
             lblSoyad.Name = "lblSoyad";
-            lblSoyad.Size = new Size(138, 32);
+            lblSoyad.Size = new Size(93, 21);
             lblSoyad.TabIndex = 1;
             lblSoyad.Text = "Soyadınız :";
             lblSoyad.UseWaitCursor = true;
@@ -68,10 +66,9 @@
             // 
             lblEposta.AutoSize = true;
             lblEposta.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            lblEposta.Location = new Point(43, 195);
-            lblEposta.Margin = new Padding(4, 0, 4, 0);
+            lblEposta.Location = new Point(30, 117);
             lblEposta.Name = "lblEposta";
-            lblEposta.Size = new Size(97, 32);
+            lblEposta.Size = new Size(65, 21);
             lblEposta.TabIndex = 2;
             lblEposta.Text = "Email : ";
             lblEposta.UseWaitCursor = true;
@@ -80,10 +77,9 @@
             // 
             lblPass.AutoSize = true;
             lblPass.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            lblPass.Location = new Point(43, 262);
-            lblPass.Margin = new Padding(4, 0, 4, 0);
+            lblPass.Location = new Point(30, 157);
             lblPass.Name = "lblPass";
-            lblPass.Size = new Size(80, 32);
+            lblPass.Size = new Size(53, 21);
             lblPass.TabIndex = 3;
             lblPass.Text = "Şifre :";
             lblPass.UseWaitCursor = true;
@@ -92,51 +88,46 @@
             // 
             txtAd.BackColor = SystemColors.Window;
             txtAd.BorderStyle = BorderStyle.FixedSingle;
-            txtAd.Location = new Point(184, 68);
-            txtAd.Margin = new Padding(4, 5, 4, 5);
+            txtAd.Location = new Point(129, 41);
             txtAd.Name = "txtAd";
-            txtAd.Size = new Size(141, 31);
+            txtAd.Size = new Size(99, 23);
             txtAd.TabIndex = 4;
             txtAd.UseWaitCursor = true;
             // 
             // txtSoyad
             // 
             txtSoyad.BorderStyle = BorderStyle.FixedSingle;
-            txtSoyad.Location = new Point(184, 128);
-            txtSoyad.Margin = new Padding(4, 5, 4, 5);
+            txtSoyad.Location = new Point(129, 77);
             txtSoyad.Name = "txtSoyad";
-            txtSoyad.Size = new Size(141, 31);
+            txtSoyad.Size = new Size(99, 23);
             txtSoyad.TabIndex = 5;
             txtSoyad.UseWaitCursor = true;
             // 
             // txtEmail
             // 
             txtEmail.BorderStyle = BorderStyle.FixedSingle;
-            txtEmail.Location = new Point(184, 192);
-            txtEmail.Margin = new Padding(4, 5, 4, 5);
+            txtEmail.Location = new Point(129, 115);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(141, 31);
+            txtEmail.Size = new Size(99, 23);
             txtEmail.TabIndex = 6;
             txtEmail.UseWaitCursor = true;
             // 
             // txtPass
             // 
             txtPass.BorderStyle = BorderStyle.FixedSingle;
-            txtPass.Location = new Point(184, 258);
-            txtPass.Margin = new Padding(4, 5, 4, 5);
+            txtPass.Location = new Point(129, 155);
             txtPass.Name = "txtPass";
             txtPass.PasswordChar = '*';
-            txtPass.Size = new Size(141, 31);
+            txtPass.Size = new Size(99, 23);
             txtPass.TabIndex = 7;
             txtPass.UseWaitCursor = true;
             // 
             // btnKayitEkle
             // 
             btnKayitEkle.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            btnKayitEkle.Location = new Point(43, 352);
-            btnKayitEkle.Margin = new Padding(4, 5, 4, 5);
+            btnKayitEkle.Location = new Point(30, 211);
             btnKayitEkle.Name = "btnKayitEkle";
-            btnKayitEkle.Size = new Size(284, 57);
+            btnKayitEkle.Size = new Size(199, 34);
             btnKayitEkle.TabIndex = 8;
             btnKayitEkle.Text = "KAYIT OL";
             btnKayitEkle.UseVisualStyleBackColor = true;
@@ -145,12 +136,12 @@
             // 
             // Form2
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(444, 501);
+            ClientSize = new Size(311, 301);
             Controls.Add(btnKayitEkle);
             Controls.Add(txtPass);
             Controls.Add(txtEmail);
@@ -161,7 +152,6 @@
             Controls.Add(lblSoyad);
             Controls.Add(lblAd);
             ForeColor = SystemColors.ActiveCaptionText;
-            Margin = new Padding(4, 5, 4, 5);
             Name = "Form2";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form2";
