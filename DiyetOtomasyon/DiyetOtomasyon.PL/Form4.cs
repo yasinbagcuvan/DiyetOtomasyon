@@ -101,6 +101,7 @@ namespace DiyetOtomasyon.PL
                             join mt in mealTimeManager.GetAll() on pm.MealTimeId equals mt.Id
                             join pt in portionManager.GetAll() on pm.PortionId equals pt.Id
                             where p.Id == Program.LoginUserId
+                            where pm.Status != Status.Deleted
                             where (DateTime.Now.Day) - (pm.CreatedDate.Day) <= 1
                             select new { KisiAdi = p.FirstName + " " + p.LastName, YemekAdi = m.MealName, Kalorisi = m.Calorie, OgunAdi = mt.Name, Porsiyon = pt.Size, ToplamKalori = (int)(m.Calorie * pt.Size), Tarih = pm.CreatedDate }).ToList();
 
@@ -123,6 +124,7 @@ namespace DiyetOtomasyon.PL
                              join pt in portionManager.GetAll() on pm.PortionId equals pt.Id
                              join c in categoryManager.GetAll() on m.CategoryId equals c.Id
                              where mt.Name == selecetedMealTimeModel.Name
+                             where pm.Status != Status.Deleted
                              where (DateTime.Now.Day) - (pm.CreatedDate.Day) <= 7
                              group pm by new
                              {
@@ -175,6 +177,7 @@ namespace DiyetOtomasyon.PL
                              join pt in portionManager.GetAll() on pm.PortionId equals pt.Id
                              join c in categoryManager.GetAll() on m.CategoryId equals c.Id
                              where m.MealName == cmbMeal.MealName
+                             where pm.Status != Status.Deleted
                              where (DateTime.Now.Day) - (pm.CreatedDate.Day) <= 7
                              group pm by new
                              {
@@ -212,6 +215,7 @@ namespace DiyetOtomasyon.PL
                              join pt in portionManager.GetAll() on pm.PortionId equals pt.Id
                              join c in categoryManager.GetAll() on m.CategoryId equals c.Id
                              where mt.Name == selecetedMealTimeModel1.Name
+                             where pm.Status != Status.Deleted
                              where (DateTime.Now.Day) - (pm.CreatedDate.Day) <= 30
                              group pm by new
                              {
@@ -249,6 +253,7 @@ namespace DiyetOtomasyon.PL
                              join pt in portionManager.GetAll() on pm.PortionId equals pt.Id
                              join c in categoryManager.GetAll() on m.CategoryId equals c.Id
                              where m.MealName == cmbMeal1.MealName
+                             where pm.Status != Status.Deleted
                              where (DateTime.Now.Day) - (pm.CreatedDate.Day) <= 30
                              group pm by new
                              {
@@ -283,6 +288,7 @@ namespace DiyetOtomasyon.PL
                 join mt in mealTimeManager.GetAll() on pm.MealTimeId equals mt.Id
                 join pt in portionManager.GetAll() on pm.PortionId equals pt.Id
                 where p.Id == Program.LoginUserId
+                where pm.Status != Status.Deleted
                 where (DateTime.Now.Day) - (pm.CreatedDate.Day) <= 30
                 orderby pt.Size descending
                 group pm by new
@@ -344,6 +350,7 @@ namespace DiyetOtomasyon.PL
             if (deletePmModel is not null)
             {
                 personMealManager.Delete(deletePmModel);
+                MessageBox.Show("ÖĞÜN SİLME BAŞARILI ", "BAŞARILI", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 OgunListeGetir();
             }
             else
