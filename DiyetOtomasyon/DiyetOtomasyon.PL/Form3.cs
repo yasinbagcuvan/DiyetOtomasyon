@@ -37,18 +37,19 @@ namespace DiyetOtomasyon.PL
             }
             else
             {
-                PersonManager personManager = new PersonManager();
-                LoginUser = personManager.FindUser(email, pass);
-
-                if (LoginUser != null)
+                if (email == "admin" && pass == "admin1")
                 {
-                    if (LoginUser.Email == "admin" && LoginUser.Password == "admin1")
-                    {
-                        Form5 form5 = new Form5();
-                        form5.Show();
-                        this.Dispose();
-                    }
-                    else
+                    Form5 form5 = new Form5();
+                    form5.Show();
+                    this.Dispose();
+                }
+                else
+                {
+                    PersonManager personManager = new PersonManager();
+                    LoginUser = personManager.FindUser(email, Program.sha256_hash(pass));
+
+
+                    if (LoginUser != null)
                     {
                         Program.LoginUserId = LoginUser.Id;
                         Program.Person = LoginUser;
@@ -56,14 +57,15 @@ namespace DiyetOtomasyon.PL
                         Form4 form4 = new Form4();
                         form4.Show();
                         this.Dispose();
-                    }
 
+                    }
+                    else
+                    {
+                        MessageBox.Show("Kullanıcı Adı veya Şifre Yanlış", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        EmailPassReset();
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Kullanıcı Adı veya Şifre Yanlış", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    EmailPassReset();
-                }
+                
 
             }
         }
