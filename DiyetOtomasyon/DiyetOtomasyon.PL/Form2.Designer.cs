@@ -50,7 +50,6 @@
             lblAd.Size = new Size(101, 32);
             lblAd.TabIndex = 0;
             lblAd.Text = "Adınız :";
-            lblAd.UseWaitCursor = true;
             // 
             // lblSoyad
             // 
@@ -62,7 +61,6 @@
             lblSoyad.Size = new Size(138, 32);
             lblSoyad.TabIndex = 1;
             lblSoyad.Text = "Soyadınız :";
-            lblSoyad.UseWaitCursor = true;
             // 
             // lblEposta
             // 
@@ -74,7 +72,6 @@
             lblEposta.Size = new Size(97, 32);
             lblEposta.TabIndex = 2;
             lblEposta.Text = "Email : ";
-            lblEposta.UseWaitCursor = true;
             // 
             // lblPass
             // 
@@ -86,7 +83,6 @@
             lblPass.Size = new Size(80, 32);
             lblPass.TabIndex = 3;
             lblPass.Text = "Şifre :";
-            lblPass.UseWaitCursor = true;
             // 
             // txtAd
             // 
@@ -97,7 +93,6 @@
             txtAd.Name = "txtAd";
             txtAd.Size = new Size(141, 31);
             txtAd.TabIndex = 4;
-            txtAd.UseWaitCursor = true;
             // 
             // txtSoyad
             // 
@@ -107,7 +102,6 @@
             txtSoyad.Name = "txtSoyad";
             txtSoyad.Size = new Size(141, 31);
             txtSoyad.TabIndex = 5;
-            txtSoyad.UseWaitCursor = true;
             // 
             // txtEmail
             // 
@@ -117,7 +111,6 @@
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(141, 31);
             txtEmail.TabIndex = 6;
-            txtEmail.UseWaitCursor = true;
             // 
             // txtPass
             // 
@@ -128,7 +121,6 @@
             txtPass.PasswordChar = '*';
             txtPass.Size = new Size(141, 31);
             txtPass.TabIndex = 7;
-            txtPass.UseWaitCursor = true;
             // 
             // btnKayitEkle
             // 
@@ -140,7 +132,6 @@
             btnKayitEkle.TabIndex = 8;
             btnKayitEkle.Text = "KAYIT OL";
             btnKayitEkle.UseVisualStyleBackColor = true;
-            btnKayitEkle.UseWaitCursor = true;
             btnKayitEkle.Click += btnKayitEkle_Click;
             // 
             // Form2
@@ -165,7 +156,6 @@
             Name = "Form2";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form2";
-            UseWaitCursor = true;
             ResumeLayout(false);
             PerformLayout();
         }
