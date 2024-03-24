@@ -26,7 +26,6 @@ namespace DiyetOtomasyon.PL
         private void Form1_Load(object sender, EventArgs e)
         {
             Program.MainForm = this;
-
         }
     }
 }
