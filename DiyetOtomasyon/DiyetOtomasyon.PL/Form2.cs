@@ -30,7 +30,7 @@ namespace DiyetOtomasyon.PL
         {
 
             UserInfoFromTexts();
-
+            SifreKontrol(txtPass.Text);
             if (txtEmail.Text == "admin" && txtPass.Text == "admin1")
             {
                 KullaniciKayitliMi("Admin");
@@ -38,9 +38,6 @@ namespace DiyetOtomasyon.PL
             else
             {
                 TextBoslukKontrol();
-
-                SifreKontrol(txtPass.Text);
-
                 if (!txtEmail.Text.EndsWith(".com") || !EmailControl(txtEmail.Text))
                 {
                     MessageBox.Show("Lütfen Email formatında bir mail giriniz!", "BAŞARISIZ", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -59,13 +56,11 @@ namespace DiyetOtomasyon.PL
             {
                 txtPass.Text = "";
                 ErrorMessageForPass("6 en fazla 10 hane");
-                
                 return;
             }
             if (!Regex.IsMatch(sifre, "[A-Z]"))
             {
                 ErrorMessageForPass("bir büyük harf");
-  
                 return;
             }
             if (!Regex.IsMatch(sifre, "[a-z]"))
