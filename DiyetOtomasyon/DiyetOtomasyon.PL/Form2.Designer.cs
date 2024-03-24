@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             lblAd = new Label();
             lblSoyad = new Label();
             lblEposta = new Label();
@@ -78,35 +79,39 @@
             lblPass.Size = new Size(53, 21);
             lblPass.TabIndex = 3;
             lblPass.Text = "Şifre :";
-
             // 
             // txtAd
             // 
+            txtAd.BackColor = SystemColors.Window;
+            txtAd.BorderStyle = BorderStyle.FixedSingle;
             txtAd.Location = new Point(129, 41);
             txtAd.Name = "txtAd";
-            txtAd.Size = new Size(100, 23);
+            txtAd.Size = new Size(99, 23);
             txtAd.TabIndex = 4;
             // 
             // txtSoyad
             // 
+            txtSoyad.BorderStyle = BorderStyle.FixedSingle;
             txtSoyad.Location = new Point(129, 77);
             txtSoyad.Name = "txtSoyad";
-            txtSoyad.Size = new Size(100, 23);
+            txtSoyad.Size = new Size(99, 23);
             txtSoyad.TabIndex = 5;
             // 
             // txtEmail
             // 
+            txtEmail.BorderStyle = BorderStyle.FixedSingle;
             txtEmail.Location = new Point(129, 115);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(100, 23);
+            txtEmail.Size = new Size(99, 23);
             txtEmail.TabIndex = 6;
             // 
             // txtPass
             // 
+            txtPass.BorderStyle = BorderStyle.FixedSingle;
             txtPass.Location = new Point(129, 155);
             txtPass.Name = "txtPass";
             txtPass.PasswordChar = '*';
-            txtPass.Size = new Size(100, 23);
+            txtPass.Size = new Size(99, 23);
             txtPass.TabIndex = 7;
             // 
             // btnKayitEkle
@@ -124,7 +129,10 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(265, 266);
+            BackColor = SystemColors.Control;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(311, 301);
             Controls.Add(btnKayitEkle);
             Controls.Add(txtPass);
             Controls.Add(txtEmail);
@@ -134,6 +142,7 @@
             Controls.Add(lblEposta);
             Controls.Add(lblSoyad);
             Controls.Add(lblAd);
+            ForeColor = SystemColors.ActiveCaptionText;
             Name = "Form2";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form2";

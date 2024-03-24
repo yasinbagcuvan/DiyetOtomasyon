@@ -40,7 +40,7 @@ namespace DiyetOtomasyon.BL.Manager.Abstract
             _config = new MapperConfiguration(cfg =>
             {
                 
-                cfg.AddCollectionMappers();
+                //cfg.AddCollectionMappers();
                 cfg.AddExpressionMapping().CreateMap<TModel, TEntity>().ReverseMap();
                 cfg.AddProfile<TMapperProfile>();
             });
