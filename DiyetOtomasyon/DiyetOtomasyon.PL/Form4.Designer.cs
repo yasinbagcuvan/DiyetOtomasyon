@@ -476,6 +476,9 @@
             // 
             // dgvOgunListem
             // 
+            dgvOgunListem.AccessibleRole = AccessibleRole.Row;
+            dgvOgunListem.AllowUserToResizeColumns = false;
+            dgvOgunListem.AllowUserToResizeRows = false;
             dgvOgunListem.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvOgunListem.Location = new Point(7, 30);
             dgvOgunListem.Name = "dgvOgunListem";
@@ -527,6 +530,7 @@
             // 
             // dgvYemekListesi
             // 
+            dgvYemekListesi.AccessibleRole = AccessibleRole.Row;
             dgvYemekListesi.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvYemekListesi.Location = new Point(7, 218);
             dgvYemekListesi.Name = "dgvYemekListesi";
