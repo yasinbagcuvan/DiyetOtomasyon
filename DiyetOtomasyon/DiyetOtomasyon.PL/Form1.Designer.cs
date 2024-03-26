@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             lblHosgeldiniz = new Label();
             btnGiris = new Button();
             btnKayit = new Button();
@@ -39,20 +40,18 @@
             lblHosgeldiniz.BackColor = SystemColors.GradientInactiveCaption;
             lblHosgeldiniz.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Regular, GraphicsUnit.Point, 162);
             lblHosgeldiniz.ForeColor = SystemColors.MenuHighlight;
-            lblHosgeldiniz.Location = new Point(216, 58);
-            lblHosgeldiniz.Margin = new Padding(4, 0, 4, 0);
+            lblHosgeldiniz.Location = new Point(151, 35);
             lblHosgeldiniz.Name = "lblHosgeldiniz";
-            lblHosgeldiniz.Size = new Size(667, 40);
+            lblHosgeldiniz.Size = new Size(442, 29);
             lblHosgeldiniz.TabIndex = 0;
             lblHosgeldiniz.Text = "DIYET UYGULAMASINA HOSGELDINIZ";
             // 
             // btnGiris
             // 
             btnGiris.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            btnGiris.Location = new Point(394, 252);
-            btnGiris.Margin = new Padding(4, 5, 4, 5);
+            btnGiris.Location = new Point(276, 151);
             btnGiris.Name = "btnGiris";
-            btnGiris.Size = new Size(331, 87);
+            btnGiris.Size = new Size(232, 52);
             btnGiris.TabIndex = 1;
             btnGiris.Text = "Giriş Yap";
             btnGiris.UseVisualStyleBackColor = true;
@@ -61,10 +60,9 @@
             // btnKayit
             // 
             btnKayit.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            btnKayit.Location = new Point(394, 412);
-            btnKayit.Margin = new Padding(4, 5, 4, 5);
+            btnKayit.Location = new Point(276, 247);
             btnKayit.Name = "btnKayit";
-            btnKayit.Size = new Size(331, 87);
+            btnKayit.Size = new Size(232, 52);
             btnKayit.TabIndex = 2;
             btnKayit.Text = "Kayıt Ol";
             btnKayit.UseVisualStyleBackColor = true;
@@ -72,14 +70,15 @@
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(1143, 750);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(800, 450);
             Controls.Add(btnKayit);
             Controls.Add(btnGiris);
             Controls.Add(lblHosgeldiniz);
-            Margin = new Padding(4, 5, 4, 5);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";

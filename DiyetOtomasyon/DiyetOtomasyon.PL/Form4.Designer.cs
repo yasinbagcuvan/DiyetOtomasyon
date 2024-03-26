@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form4));
             tabPage5 = new TabPage();
             label7 = new Label();
             btnYemekCesit = new Button();
@@ -90,6 +91,8 @@
             // 
             // tabPage5
             // 
+            tabPage5.BackgroundImage = (Image)resources.GetObject("tabPage5.BackgroundImage");
+            tabPage5.BackgroundImageLayout = ImageLayout.Stretch;
             tabPage5.Controls.Add(label7);
             tabPage5.Controls.Add(btnYemekCesit);
             tabPage5.Controls.Add(dgvYemekKiyas);
@@ -136,6 +139,8 @@
             // 
             // tabPage4
             // 
+            tabPage4.BackgroundImage = (Image)resources.GetObject("tabPage4.BackgroundImage");
+            tabPage4.BackgroundImageLayout = ImageLayout.Stretch;
             tabPage4.Controls.Add(lblAylıkYemek);
             tabPage4.Controls.Add(label13);
             tabPage4.Controls.Add(cmbAylıkYemek);
@@ -255,6 +260,8 @@
             // 
             // tabPage3
             // 
+            tabPage3.BackgroundImage = (Image)resources.GetObject("tabPage3.BackgroundImage");
+            tabPage3.BackgroundImageLayout = ImageLayout.Stretch;
             tabPage3.Controls.Add(lblYemekToplam);
             tabPage3.Controls.Add(label10);
             tabPage3.Controls.Add(cmbYemekler);
@@ -374,6 +381,8 @@
             // 
             // tabPage2
             // 
+            tabPage2.BackgroundImage = (Image)resources.GetObject("tabPage2.BackgroundImage");
+            tabPage2.BackgroundImageLayout = ImageLayout.Stretch;
             tabPage2.Controls.Add(lblToplamKalori);
             tabPage2.Controls.Add(label2);
             tabPage2.Controls.Add(btnDayList);
@@ -430,6 +439,8 @@
             // 
             // tabPage1
             // 
+            tabPage1.BackgroundImage = (Image)resources.GetObject("tabPage1.BackgroundImage");
+            tabPage1.BackgroundImageLayout = ImageLayout.Stretch;
             tabPage1.Controls.Add(btnOgunSil);
             tabPage1.Controls.Add(label9);
             tabPage1.Controls.Add(dgvOgunListem);
@@ -491,6 +502,7 @@
             // label4
             // 
             label4.AutoSize = true;
+            label4.BackColor = Color.White;
             label4.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             label4.Location = new Point(309, 418);
             label4.Name = "label4";
@@ -501,6 +513,7 @@
             // label3
             // 
             label3.AutoSize = true;
+            label3.BackColor = Color.White;
             label3.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             label3.Location = new Point(305, 479);
             label3.Name = "label3";
@@ -543,7 +556,9 @@
             // lblMealDesc
             // 
             lblMealDesc.AutoSize = true;
+            lblMealDesc.BackColor = Color.Red;
             lblMealDesc.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 162);
+            lblMealDesc.ForeColor = SystemColors.Control;
             lblMealDesc.Location = new Point(20, 477);
             lblMealDesc.Name = "lblMealDesc";
             lblMealDesc.Size = new Size(103, 25);
@@ -553,7 +568,9 @@
             // lblCalorie
             // 
             lblCalorie.AutoSize = true;
+            lblCalorie.BackColor = Color.Red;
             lblCalorie.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 162);
+            lblCalorie.ForeColor = SystemColors.Menu;
             lblCalorie.Location = new Point(20, 439);
             lblCalorie.Name = "lblCalorie";
             lblCalorie.Size = new Size(78, 25);
@@ -563,7 +580,9 @@
             // lblMealName
             // 
             lblMealName.AutoSize = true;
+            lblMealName.BackColor = Color.Red;
             lblMealName.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 162);
+            lblMealName.ForeColor = SystemColors.Control;
             lblMealName.Location = new Point(20, 403);
             lblMealName.Name = "lblMealName";
             lblMealName.Size = new Size(85, 25);
