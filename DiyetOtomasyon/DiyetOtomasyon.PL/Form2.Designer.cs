@@ -44,7 +44,7 @@
             // 
             lblAd.AutoSize = true;
             lblAd.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            lblAd.Location = new Point(30, 43);
+            lblAd.Location = new Point(155, 96);
             lblAd.Name = "lblAd";
             lblAd.Size = new Size(67, 21);
             lblAd.TabIndex = 0;
@@ -54,7 +54,7 @@
             // 
             lblSoyad.AutoSize = true;
             lblSoyad.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            lblSoyad.Location = new Point(30, 79);
+            lblSoyad.Location = new Point(155, 132);
             lblSoyad.Name = "lblSoyad";
             lblSoyad.Size = new Size(93, 21);
             lblSoyad.TabIndex = 1;
@@ -64,7 +64,7 @@
             // 
             lblEposta.AutoSize = true;
             lblEposta.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            lblEposta.Location = new Point(30, 117);
+            lblEposta.Location = new Point(155, 170);
             lblEposta.Name = "lblEposta";
             lblEposta.Size = new Size(65, 21);
             lblEposta.TabIndex = 2;
@@ -74,7 +74,7 @@
             // 
             lblPass.AutoSize = true;
             lblPass.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            lblPass.Location = new Point(30, 157);
+            lblPass.Location = new Point(155, 210);
             lblPass.Name = "lblPass";
             lblPass.Size = new Size(53, 21);
             lblPass.TabIndex = 3;
@@ -84,7 +84,7 @@
             // 
             txtAd.BackColor = SystemColors.Window;
             txtAd.BorderStyle = BorderStyle.FixedSingle;
-            txtAd.Location = new Point(129, 41);
+            txtAd.Location = new Point(254, 94);
             txtAd.Name = "txtAd";
             txtAd.Size = new Size(99, 23);
             txtAd.TabIndex = 4;
@@ -92,7 +92,7 @@
             // txtSoyad
             // 
             txtSoyad.BorderStyle = BorderStyle.FixedSingle;
-            txtSoyad.Location = new Point(129, 77);
+            txtSoyad.Location = new Point(254, 130);
             txtSoyad.Name = "txtSoyad";
             txtSoyad.Size = new Size(99, 23);
             txtSoyad.TabIndex = 5;
@@ -100,7 +100,7 @@
             // txtEmail
             // 
             txtEmail.BorderStyle = BorderStyle.FixedSingle;
-            txtEmail.Location = new Point(129, 115);
+            txtEmail.Location = new Point(254, 168);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(99, 23);
             txtEmail.TabIndex = 6;
@@ -108,7 +108,7 @@
             // txtPass
             // 
             txtPass.BorderStyle = BorderStyle.FixedSingle;
-            txtPass.Location = new Point(129, 155);
+            txtPass.Location = new Point(254, 208);
             txtPass.Name = "txtPass";
             txtPass.PasswordChar = '*';
             txtPass.Size = new Size(99, 23);
@@ -117,7 +117,7 @@
             // btnKayitEkle
             // 
             btnKayitEkle.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            btnKayitEkle.Location = new Point(30, 211);
+            btnKayitEkle.Location = new Point(155, 264);
             btnKayitEkle.Name = "btnKayitEkle";
             btnKayitEkle.Size = new Size(199, 34);
             btnKayitEkle.TabIndex = 8;
@@ -132,7 +132,7 @@
             BackColor = SystemColors.Control;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(311, 301);
+            ClientSize = new Size(508, 386);
             Controls.Add(btnKayitEkle);
             Controls.Add(txtPass);
             Controls.Add(txtEmail);
