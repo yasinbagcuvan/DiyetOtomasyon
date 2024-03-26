@@ -27,6 +27,7 @@ namespace DiyetOtomasyon.DAL.Context
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<PersonMeal>().Ignore(pm => pm.Id);
             modelBuilder.Entity<PersonMeal>().HasKey(pm => new {pm.PersonId, pm.MealId, pm.CreatedDate });
+            modelBuilder.Entity<PersonMeal>().Property(pm => pm.CreatedDate).HasColumnType("datetime2(0)");
         }
     }
 }
