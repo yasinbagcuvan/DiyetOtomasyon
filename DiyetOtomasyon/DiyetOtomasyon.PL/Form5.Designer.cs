@@ -463,7 +463,7 @@
             Controls.Add(tabControl1);
             Name = "Form5";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form5";
+            Text = "Admin Paneli";
             FormClosed += Form5_FormClosed;
             Load += Form5_Load;
             ((System.ComponentModel.ISupportInitialize)dgvAdminYemek).EndInit();

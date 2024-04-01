@@ -81,7 +81,7 @@
             Controls.Add(lblHosgeldiniz);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "Anasayfa";
             Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
