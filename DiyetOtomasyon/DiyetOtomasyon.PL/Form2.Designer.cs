@@ -145,7 +145,7 @@
             ForeColor = SystemColors.ActiveCaptionText;
             Name = "Form2";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form2";
+            Text = "Kayıt Ol";
             ResumeLayout(false);
             PerformLayout();
         }

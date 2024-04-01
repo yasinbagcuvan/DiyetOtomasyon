@@ -121,7 +121,7 @@
             Controls.Add(lblEmail1);
             Name = "Form3";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form3";
+            Text = "Giriş Yap";
             FormClosed += Form3_FormClosed;
             ResumeLayout(false);
             PerformLayout();

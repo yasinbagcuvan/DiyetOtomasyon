@@ -629,7 +629,7 @@
             Controls.Add(tabControl1);
             Name = "Form4";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form4";
+            Text = "Kullanıcı Paneli";
             FormClosing += Form4_FormClosing;
             Load += Form4_Load;
             tabPage5.ResumeLayout(false);
