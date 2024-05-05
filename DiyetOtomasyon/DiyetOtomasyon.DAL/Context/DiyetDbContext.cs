@@ -12,7 +12,7 @@ namespace DiyetOtomasyon.DAL.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-SDLI8OI\\SQLEXPRESS; Database=DiyetDB;Trusted_Connection=true;trustservercertificate=true");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-SDLI8OI\\SQLEXPRESS;Database=DiyetDB;Trusted_Connection=true;trustservercertificate=true");
             optionsBuilder.UseLazyLoadingProxies(true);
         }
         public DbSet<Person> Persons { get; set; }
