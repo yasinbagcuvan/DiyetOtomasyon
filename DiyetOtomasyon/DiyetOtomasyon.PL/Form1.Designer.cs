@@ -75,6 +75,7 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
+            BackgroundImage = Properties.Resources.images;
             ClientSize = new Size(1143, 750);
             Controls.Add(btnKayit);
             Controls.Add(btnGiris);
